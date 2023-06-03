@@ -1,111 +1,76 @@
 import React from "react";
+import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
 import { Card, Dropdown } from "flowbite-react";
 const PaymentModal = () => {
   return (
     <>
-      <div className="flex flex-row justify-center px-5 py-24 mx-auto ">
-        
-          <div class="container px-5   mx-10 bg-white rounded-xl">
-            <div class="flex flex-col text-left py-10 px-10 w-full mb-12">
-              <h2 class="text-gray-900 text-lg mb-1 font-medium title-font start-0">
-                Feedback
-              </h2>
-              
-              <p class="leading-relaxed mb-5 text-gray-600">
-                Post-ironic portland shabby chic echo park, banjo fashion axe
-              </p>
-              <div class="relative mb-4">
-                <label for="name" class="leading-7 text-sm text-gray-600">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+      <section class="text-gray-600 body-font relative">
+        <div class="container px-5 py-20 mx-auto flex sm:flex-nowrap flex-wrap">
+          <div class="lg:w-2/3 md:w-1/2 bg-black rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative"></div>
+          <div class="lg:w-1/3 md:w-1/2 bg-black rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+              crypto chat 
+            </h2>
+            <p class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
+              give some support to your faviouite creator.
+            </p>
+            <div className="flex flex-wrap justify-center">
+              <div className="w-6/12 sm:w-4/12">
+                <img
+                  src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png"
+                  alt="..."
+                  className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-2"
                 />
-                <div class="relative mb-4">
-                  <label for="email" class="leading-7 text-sm text-gray-600">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                  <div class="relative mb-4">
-                    <label
-                      for="message"
-                      class="leading-7 text-sm text-gray-600"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                    ></textarea>
-                  </div>
-                  <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                    Button
-                  </button>
-                </div>
+                <div className="flex  justify-center items-center mx-auto ">
+                <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
+                  WEB3 Builder   
+                </h2>
+                <AiFillYoutube className="text-white mt-3 mx-auto  text-xl"/>
+                </div>  
               </div>
             </div>
-          </div>
-          <div class="container px-5  mx-10 bg-white rounded-xl">
-            <div class="flex flex-col text-left py-10 px-10 w-full mb-12">
-              <h2 class="text-gray-900 text-lg mb-1 font-medium title-font start-0">
-                Feedback
+            
+            <div class="relative mb-4">
+              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+                amount
               </h2>
-              
-              <p class="leading-relaxed mb-5 text-gray-600">
-                Post-ironic portland shabby chic echo park, banjo fashion axe
-              </p>
-              <div class="relative mb-4">
-                <label for="name" class="leading-7 text-sm text-gray-600">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-                <div class="relative mb-4">
-                  <label for="email" class="leading-7 text-sm text-gray-600">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                  <div class="relative mb-4">
-                    <label
-                      for="message"
-                      class="leading-7 text-sm text-gray-600"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                    ></textarea>
-                  </div>
-                  <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                    Button
-                  </button>
-                </div>
-              </div>
+              <h1 className="text-lg font-extrabold leading-none tracking-tight text-green-500 md:text-5xl lg:text-5xl dark:text-white text-center">
+                $25
+              </h1>
             </div>
+            <div className="flex justify-between mt-2 ">
+              <button class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
+                send $25
+              </button>
+              <button class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
+                send $25
+              </button>
+              <button class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
+                send $25
+              </button>
+              <button class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
+                send $25
+              </button>
+            </div>
+            <div class="relative mb-4">
+              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-xl mt-4 dark:text-white">
+                any message
+              </h2>  
+              <input
+                id="message"
+                name="message"
+                placeholder="any message from your side ..."
+                class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+              ></input>
+            </div>
+            <button class="text-black bg-green-500 border-0 py-2 px-6 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white">
+              send $100
+            </button>
+            
           </div>
-       
-      </div>
+        </div>
+      </section>
     </>
   );
 };
