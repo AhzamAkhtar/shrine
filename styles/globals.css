@@ -24,6 +24,16 @@ a {
     background: black;
   }
 }
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 @tailwind base;
 @tailwind components;

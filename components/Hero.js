@@ -1,4 +1,5 @@
 import Image from "next/image";
+import PaymentModal from "./PaymentModal";
 const Hero = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const Hero = () => {
           objectFit="cover"
         />
       </div>
+      <PaymentModal/>
     </>
   );
 };
