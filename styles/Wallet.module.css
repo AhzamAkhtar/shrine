@@ -1,0 +1,13 @@
+.walletbutton{
+    border: 2px solid yellow !important;
+    color: white !important;
+    text-transform: lowercase;
+    font-weight: bolder;
+    font-stretch: expanded;
+    font-size: large;
+ }
+  
+ .wallet-button:hover {
+   border: 2px solid grey !important;
+   color: white !important;
+ }
