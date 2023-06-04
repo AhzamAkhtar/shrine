@@ -7,15 +7,13 @@ const PaymentModal = () => {
   return (
     <>
       <section class="text-gray-600 body-font ">
-        <div class="container px-2 py-32 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
+        <div class="container px-2 py-24 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
           {/* <div class="lg:w-2/3 md:w-1/2 bg-black rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative"></div> */}
           <div class="lg:w-1/3 md:w-1/2 bg-black rounded-xl p-8 flex flex-col  md:ml-auto  mt-5 md:mt-0  z-10 shadow-md">
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-3xl dark:text-white">
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
               crypto chat
             </h2>
-            <p class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-3 dark:text-white">
-              give some support to your faviouite creator.
-            </p>
+            
             <div className="flex flex-wrap justify-center">
               <div className="w-6/12 sm:w-4/12">
                 <img
@@ -45,13 +43,13 @@ const PaymentModal = () => {
                 send $25
               </button>
               <button class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
-                send $25
+                send $50
               </button>
               <button class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
-                send $25
+                send $75
               </button>
               <button class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white ">
-                send $25
+                send $100
               </button>
             </div>
             <div class="relative mb-4">
@@ -82,10 +80,10 @@ const PaymentModal = () => {
               scrolling="no"
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
             >
-            <h2 className='flex justify-left mx-10 mt-10 text-white text-8xl  mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>do</h2>
-              <h2 className='flex justify-left mx-10 text-white text-8xl mt-5 mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>support</h2>
-              <h2 className='flex justify-left mx-10 text-white text-8xl mt-5 mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>your</h2>
-              <h2 className='flex justify-left mx-10 text-yellow-300 text-8xl mt-5 mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>faviourite creator !!</h2>
+            <h2 className='flex justify-left mx-10 mt-10 text-white text-8xl   font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>do</h2>
+              <h2 className='flex justify-left mx-10 text-white text-8xl    font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>support</h2>
+              <h2 className='flex justify-left mx-10 text-white text-8xl    font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>your</h2>
+              <h2 className='flex justify-left mx-10 text-yellow-300 text-8xl mt-5 mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white'>faviourite creator. </h2>
             </div>
            
           </div>
