@@ -20,6 +20,7 @@ const Hero = () => {
         />
       </div>
       <PaymentModal/>
+      
     </>
   );
 };

@@ -8,10 +8,11 @@ const PaymentModal = () => {
   const  {
     doTransaction,
     receiver,
-    amount
+    amount,
+    setAmount
   } = useCashApp()
-  const friendLoading = false;
-  const [price, setPrice] = useState("$75");
+
+  const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
   const pay = async () => {
     await doTransaction({
@@ -25,24 +26,29 @@ const PaymentModal = () => {
       <section class="text-gray-600 body-font ">
         <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
           <div class="lg:w-1/3 md:w-1/2 bg-black rounded-xl p-8 flex flex-col  md:ml-auto  mt-2 md:mt-0  z-10 shadow-md">
+          <div className="flex justify-between">
             <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
               crypto chat
             </h2>
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
+               points - 100+
+            </h2>
+            </div>
             <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
               support content creators with crypto
             </p>
             <div className="flex flex-wrap justify-center">
               <div className="w-6/12 sm:w-4/12">
                 <img
-                  src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png"
+                  src="./wba.jpg"
                   alt="..."
                   className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
                 />
                 <div className="flex  justify-center items-center mx-auto ">
                   <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
-                    WEB3 Builder
+                    WEB3 Builder 
                   </h2>
-                  <AiFillYoutube className="text-red-600 mt-3 mx-auto  text-xl" />
+                  <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
                 </div>
               </div>
             </div>
@@ -62,41 +68,45 @@ const PaymentModal = () => {
                 
                 class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
-                  setPrice("$25");
+                  setPrice("$0.25");
                   setColor("green-500");
+                  setAmount(0.25)
                 }}
               >
-                send $25
+                send $.25
               </button>
               <button
                 
                 class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
-                  setPrice("$50");
+                  setPrice("$0.50");
                   setColor("blue-500");
+                  setAmount(0.50)
                 }}
               >
-                send $50
+                send $.50
               </button>
               <button
                 
                 class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
-                  setPrice("$75");
+                  setPrice("$0.75");
                   setColor("orange-400 ");
+                  setAmount(0.75)
                 }}
               >
-                send $75
+                send $.75
               </button>
               <button
                 
                 class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
-                  setPrice("$100");
+                  setPrice("$0.1");
                   setColor("red-500");
+                  setAmount(0.1)
                 }}
               >
-                send $100
+                send $0.1
               </button>
             </div>
             <div class="relative mb-4">
@@ -129,9 +139,7 @@ const PaymentModal = () => {
               scrolling="no"
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
             >
-              <h2 className="flex justify-left mx-10 mt-10 text-white text-8xl   font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white">
-                do
-              </h2>
+              
               <h2 className="flex justify-left mx-10 text-white text-8xl    font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white">
                 support
               </h2>
@@ -139,7 +147,10 @@ const PaymentModal = () => {
                 your
               </h2>
               <h2 className="flex justify-left mx-10 text-yellow-300 text-8xl mt-5 mb-4  font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white">
-                faviourite creator.{" "}
+                faviourite creator's
+              </h2>
+              <h2 className="flex justify-left mx-10  text-white text-8xl   font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white">
+                and get rewarded.
               </h2>
             </div>
           </div>

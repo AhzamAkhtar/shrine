@@ -33,7 +33,8 @@ const Navbar = () => {
               shrine.
             </span>
           </a>
-          <div class="flex md:order-2">
+          <div class="flex md:order-2 justify-center">
+            
             <WalletMultiButtonDynamic className={styles.walletbutton} />
             <button
               data-collapse-toggle="navbar-cta"

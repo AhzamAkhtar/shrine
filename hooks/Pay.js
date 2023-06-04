@@ -12,8 +12,7 @@ export const useCashApp = () => {
     const [userAddress, setUserAddress] = useState("11111111111111111111111111111111")
     const [avatar, setAvatar] = useState("")
     const {connection} = useConnection()
-    const [amount,setAmount] = useState()
-    // const [amount, setAmount] = useState(0)
+    const [amount,setAmount] = useState(0.25)
     const [receiver, setReceiver] = useState('3E2jtsGv2SdHFK6YyJhqCNuvSBZbzJotwwqp9tNeELMw')
     const [transactionPurpose, setTransactionPurpose] = useState('')
     const [newTransactionModalOpen, setNewTransactionModalOpen] = useState(false)
@@ -80,7 +79,7 @@ export const useCashApp = () => {
         const bnAmount = new BigNumber(amount)
         const reference = Keypair.generate().publicKey 
         const transaction= await makeTransaction(fromWallet, toWallet, bnAmount, reference) 
-
+        
          const txnHash = await sendTransaction(transaction, connection)
          console.log(txnHash)
 
