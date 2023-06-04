@@ -3,12 +3,12 @@ import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
 const PaymentModal = () => {
   const friendLoading = false;
-  const [price, setPrice] = useState("$25");
-  const [color, setColor] = useState("green-500");
+  const [price, setPrice] = useState("$75");
+  const [color, setColor] = useState("orange-400");
   return (
     <>
       <section class="text-gray-600 body-font ">
-        <div class="container px-2 py-24 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
+        <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
           <div class="lg:w-1/3 md:w-1/2 bg-black rounded-xl p-8 flex flex-col  md:ml-auto  mt-2 md:mt-0  z-10 shadow-md">
             <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
               crypto chat

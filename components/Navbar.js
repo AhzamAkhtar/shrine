@@ -4,7 +4,7 @@ import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 //import { useBuzz } from "../Connector/buzz";
 import { CiLogin } from "react-icons/ci";
 //import { NavbarUtil } from "../utils/NavbarUtil";
-import styles from '../styles/Wallet.module.css'
+import styles from "../styles/Wallet.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 const Navbar = () => {
@@ -21,45 +21,8 @@ const Navbar = () => {
 
   return (
     <>
-      {/* <header class="text-gray-600 body-font bg-transparent absolute top-0 left-0 right-0 z-50">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-         
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-5xl dark:text-white">shrine.</h1>
-          </a>
-          <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-black	flex flex-wrap items-center text-base justify-center">
-            
-               
-          </nav>
-          <WalletMultiButtonDynamic
-            style={{
-              marginRight: "10px",
-              borderRadius: "50vw",
-            }}
-          />
-          <button class="bg-white text-black py-2 px-4 rounded-3xl inline-flex items-center">
-            <span>{word}</span>
-            {initialized ? (
-              <>
-                {home ? (
-                  <>
-                    <BsArrowLeft onClick={()=> router.push("/")}  className="ml-1 w-5 text-3xl" />
-                  </>
-                ) : (
-                  <>
-                    <BsArrowRight onClick={()=> router.push("/main")}  className="ml-1 w-5 text-3xl" />
-                  </>
-                )}
-              </>
-            ) : (
-              <CiLogin className="ml-1 w-5 text-3xl" />
-            )}
-          </button>
-        </div>
-      </header> */}
-
       <nav class="text-gray-600 body-font bg-transparent absolute top-0 left-0 right-0 z-50">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <a href="https://flowbite.com/" class="flex items-center">
             {/* <img
               src="https://flowbite.com/docs/images/logo.svg"
@@ -71,7 +34,7 @@ const Navbar = () => {
             </span>
           </a>
           <div class="flex md:order-2">
-           <WalletMultiButtonDynamic className={styles.walletbutton}/>
+            <WalletMultiButtonDynamic className={styles.walletbutton} />
             <button
               data-collapse-toggle="navbar-cta"
               type="button"
@@ -117,7 +80,6 @@ const Navbar = () => {
                   about
                 </a>
               </li>
-             
             </ul>
           </div>
         </div>
