@@ -12,7 +12,7 @@ const Hero = () => {
         }}
       >
         <Image
-          src="/sun-tornado.png"
+          src="/sun-tornadodnn.png"
           className="rounded"
           alt="Mountains with snow"
           layout="fill"
