@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
+import {
+  useCashApp
+} from '../hooks/Pay'
 const PaymentModal = () => {
+  const  {
+    doTransaction,
+    receiver,
+    amount
+  } = useCashApp()
   const friendLoading = false;
   const [price, setPrice] = useState("$75");
   const [color, setColor] = useState("orange-400");
+  const pay = async () => {
+    await doTransaction({
+      amount,
+      receiver,
+      amount
+  })
+  }
   return (
     <>
       <section class="text-gray-600 body-font ">
@@ -14,7 +29,7 @@ const PaymentModal = () => {
               crypto chat
             </h2>
             <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
-              support content creators with crypto 
+              support content creators with crypto
             </p>
             <div className="flex flex-wrap justify-center">
               <div className="w-6/12 sm:w-4/12">
@@ -44,6 +59,7 @@ const PaymentModal = () => {
             </div>
             <div className="flex justify-between mt-2 ">
               <button
+                
                 class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$25");
@@ -53,6 +69,7 @@ const PaymentModal = () => {
                 send $25
               </button>
               <button
+                
                 class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$50");
@@ -62,6 +79,7 @@ const PaymentModal = () => {
                 send $50
               </button>
               <button
+                
                 class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$75");
@@ -71,6 +89,7 @@ const PaymentModal = () => {
                 send $75
               </button>
               <button
+                
                 class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$100");
@@ -92,7 +111,8 @@ const PaymentModal = () => {
               ></input>
             </div>
             <button
-              class={`text-black bg-${color} border-0 py-2 px-6 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
+              onClick={pay}
+              className={`text-black bg-white border-0 py-2 px-6 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
             >
               send {price}
             </button>
