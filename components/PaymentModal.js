@@ -5,6 +5,7 @@ import { useCashApp } from "../hooks/Pay";
 import Action from "./transaction/Action";
 import GenQR from "./transaction/GenQR";
 import TransactionQRModal from "./transaction/TransactionQRModal";
+import BigNumber from "bignumber.js";
 const PaymentModal = () => {
   const { doTransaction, receiver, amount, setAmount } = useCashApp();
 
@@ -137,23 +138,23 @@ const PaymentModal = () => {
               >
                 send {price}
               </button>
-              <button class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
-                 {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
 
-              <GenQR
-                setModalOpen={setTransactionQRModalOpen}
-                userAddress={userAddress}
-                setQrCode={setQrCode}
-              />
-              <TransactionQRModal
-                modalOpen={transactionQRModalOpen}
-                setModalOpen={setTransactionQRModalOpen}
-                userAddress={userAddress}
-                myKey={publicKey}
-                setQrCode={setQrCode}
-              />
-              </button>
-             
+              <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
+                {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
+
+                <GenQR
+                  setModalOpen={setTransactionQRModalOpen}
+                  userAddress={userAddress}
+                  setQrCode={setQrCode}
+                />
+                <TransactionQRModal
+                  modalOpen={transactionQRModalOpen}
+                  setModalOpen={setTransactionQRModalOpen}
+                  userAddress={userAddress}
+                  myKey={publicKey}
+                  setQrCode={setQrCode}
+                />
+              </div>
             </div>
           </div>
           <div class="lg:w-1/2 md:w-1/2 bg-black rounded-xl overflow-hidden sm:mr-10 p-10 mx-5 flex items-end justify-start relative">

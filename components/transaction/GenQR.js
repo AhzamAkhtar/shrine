@@ -24,9 +24,9 @@ const GenQR = ({ setModalOpen, userAddress, setQrCode }) => {
     <div>
       
     <button onClick={onProfileOpen}>
-        <span className="font-medium text-black">
+       
         <BsQrCodeScan/>
-        </span>
+     
     </button>
 </div>
   )
