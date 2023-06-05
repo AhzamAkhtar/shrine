@@ -1,38 +1,52 @@
 import React, { useState } from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
-import {
-  useCashApp
-} from '../hooks/Pay'
+import { useCashApp } from "../hooks/Pay";
+import Action from "./transaction/Action";
+import GenQR from "./transaction/GenQR";
+import TransactionQRModal from "./transaction/TransactionQRModal";
 const PaymentModal = () => {
-  const  {
-    doTransaction,
-    receiver,
-    amount,
-    setAmount
-  } = useCashApp()
+  const { doTransaction, receiver, amount, setAmount } = useCashApp();
 
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
+
+  //
+  const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
+  const [qrCode, setQrCode] = useState(false);
+
+  const {
+    connected,
+    publicKey,
+    avatar,
+    userAddress,
+    transactions,
+    newTransactionModalOpen,
+    setNewTransactionModalOpen,
+  } = useCashApp();
+
+  const [paymentsTab, setPaymentsTab] = useState(false);
+
+  //
   const pay = async () => {
     await doTransaction({
       amount,
       receiver,
-      amount
-  })
-  }
+      amount,
+    });
+  };
   return (
     <>
       <section class="text-gray-600 body-font ">
         <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
           <div class="lg:w-1/3 md:w-1/2 bg-black rounded-xl p-8 flex flex-col  md:ml-auto  mt-2 md:mt-0  z-10 shadow-md">
-          <div className="flex justify-between">
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
-              crypto chat
-            </h2>
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
-               points - 100+
-            </h2>
+            <div className="flex justify-between">
+              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+                crypto chat
+              </h2>
+              <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
+                points - 100+
+              </h2>
             </div>
             <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
               support content creators with crypto
@@ -46,7 +60,7 @@ const PaymentModal = () => {
                 />
                 <div className="flex  justify-center items-center mx-auto ">
                   <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
-                    WEB3 Builder 
+                    WEB3 Builder
                   </h2>
                   <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
                 </div>
@@ -65,45 +79,41 @@ const PaymentModal = () => {
             </div>
             <div className="flex justify-between mt-2 ">
               <button
-                
                 class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$0.25");
                   setColor("green-500");
-                  setAmount(0.25)
+                  setAmount(0.25);
                 }}
               >
                 send $.25
               </button>
               <button
-                
                 class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$0.50");
                   setColor("blue-500");
-                  setAmount(0.50)
+                  setAmount(0.5);
                 }}
               >
                 send $.50
               </button>
               <button
-                
                 class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$0.75");
                   setColor("orange-400 ");
-                  setAmount(0.75)
+                  setAmount(0.75);
                 }}
               >
                 send $.75
               </button>
               <button
-                
                 class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                 onClick={() => {
                   setPrice("$0.1");
                   setColor("red-500");
-                  setAmount(0.1)
+                  setAmount(0.1);
                 }}
               >
                 send $0.1
@@ -120,12 +130,31 @@ const PaymentModal = () => {
                 class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></input>
             </div>
-            <button
-              onClick={pay}
-              className={`text-black bg-white border-0 py-2 px-6 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
-            >
-              send {price}
-            </button>
+            <div className="flex justify-center">
+              <button
+                onClick={pay}
+                className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
+              >
+                send {price}
+              </button>
+              <button class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
+                 {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
+
+              <GenQR
+                setModalOpen={setTransactionQRModalOpen}
+                userAddress={userAddress}
+                setQrCode={setQrCode}
+              />
+              <TransactionQRModal
+                modalOpen={transactionQRModalOpen}
+                setModalOpen={setTransactionQRModalOpen}
+                userAddress={userAddress}
+                myKey={publicKey}
+                setQrCode={setQrCode}
+              />
+              </button>
+             
+            </div>
           </div>
           <div class="lg:w-1/2 md:w-1/2 bg-black rounded-xl overflow-hidden sm:mr-10 p-10 mx-5 flex items-end justify-start relative">
             <div
@@ -139,7 +168,6 @@ const PaymentModal = () => {
               scrolling="no"
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
             >
-              
               <h2 className="flex justify-left mx-10 text-white text-8xl    font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl dark:text-white">
                 support
               </h2>
