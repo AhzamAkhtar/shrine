@@ -123,7 +123,7 @@ const TransactionQRModal = ({
         <div className="flex flex-col items-center justify-center space-y-1">
           {/* <p className="text-lg font-medium text-gray-800">{truncate(userAddress)}</p> */}
           <p className="flex justify-left mx-10 text-black text-xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white">
-            scan to pay{" "}
+            scan to pay $0.25
           </p>
           {/* <p className="text-sm font-light text-gray-600">Scan to pay ${truncate(userAddress)}</p> */}
 
@@ -133,11 +133,25 @@ const TransactionQRModal = ({
           >
             <span className="font-medium text-white mt-5">Load QR code</span>
           </button>
+    
+          <h1 className="flex justify-left mx-10 text-black text-xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-2xl dark:text-white">or</h1>
           <button
-            onClick={() => setpayam(new BigNumber("0.33"))}
+            onClick={() => setpayam(new BigNumber("0.50"))}
             className="w-full px-3 rounded-lg bg-black text-white py-3 hover:bg-opacity-70"
           >
-            <span className="font-medium text-white mt-5">change amount</span>
+            <span className="font-medium text-white mt-5">pay $0.50</span>
+          </button>
+          <button
+            onClick={() => setpayam(new BigNumber("0.75"))}
+            className="w-full px-3 rounded-lg bg-black text-white py-3 hover:bg-opacity-70"
+          >
+            <span className="font-medium text-white mt-5">pay $0.75</span>
+          </button>
+          <button
+            onClick={() => setpayam(new BigNumber("0.1"))}
+            className="w-full px-3 rounded-lg bg-black text-white py-3 hover:bg-opacity-70"
+          >
+            <span className="font-medium text-white mt-5">pay $0.1</span>
           </button>
         </div>
       </div>
