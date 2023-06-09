@@ -133,8 +133,10 @@ const TransactionQRModal = ({
           >
             <span className="font-medium text-white mt-5">Load QR code</span>
           </button>
-    
-          <h1 className="flex justify-left mx-10 text-black text-xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-2xl dark:text-white">or</h1>
+
+          <h1 className="flex justify-left mx-10 text-black text-xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-2xl dark:text-white">
+            or
+          </h1>
           <button
             onClick={() => setpayam(new BigNumber("0.50"))}
             className="w-full px-3 rounded-lg bg-black text-white py-3 hover:bg-opacity-70"
