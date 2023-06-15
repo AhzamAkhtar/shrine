@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
 import { useCashApp } from "../../hooks/Pay";
@@ -11,7 +11,8 @@ import db from "../../db/db";
 import { collection, getDocs } from "firebase/firestore";
 
 const PaymentModal = (props) => {
-  const  user  = props.slug;
+  const [data, setData] = useState([]);
+  const user = props.slug;
   const { doTransaction, receiver, amount, setAmount } = useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
@@ -20,16 +21,19 @@ const PaymentModal = (props) => {
 
   const { publicKey, userAddress } = useCashApp();
 
-  const getData = async () => {
-    const querySnapshot = await getDocs(collection(db, "cryptochat"));
-    querySnapshot.forEach((doc) => {
-      if(doc.data().name==user){
-        console.log(doc.data().desc);
-        console.log(`testing slug ${user}`)
-      }
-    });
-  };
-getData()
+  useEffect(() => {
+    const getData = async () => {
+      const querySnapshot = await getDocs(collection(db, "cryptochat"));
+      querySnapshot.forEach((doc) => {
+        if (doc.data().name == user) {
+          console.log(doc.data());
+          setData(doc.data());
+          console.log(`data ${data}`);
+        }
+      });
+    };
+    getData()
+  },[]);
 
   const pay = async () => {
     await doTransaction({
@@ -58,13 +62,13 @@ getData()
           <div className="flex flex-wrap justify-center">
             <div className="w-6/12 sm:w-4/12">
               <img
-                src="../../wba.jpg"
+                src={data.profilePhoto}
                 alt="..."
                 className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
               />
               <div className="flex  justify-center items-center mx-auto ">
                 <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
-                  WEB3 Builder
+                  {data.name}
                 </h2>
                 <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
               </div>
@@ -197,11 +201,11 @@ getData()
 };
 
 export async function getServerSideProps(context) {
-  const {slug} = context.query
-  console.log(`slug is my ${slug}`)
+  const { slug } = context.query;
+  console.log(`slug is my ${slug}`);
   return {
-    props : {slug}
-  }
+    props: { slug },
+  };
 }
 
 export default PaymentModal;
