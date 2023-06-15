@@ -38,126 +38,129 @@ const PaymentModal = () => {
   };
   return (
     <>
-      <section class="text-gray-600 body-font ">
-        <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
-          <div class="lg:w-1/3 md:w-1/2 bg-black rounded-xl p-8 flex flex-col  md:ml-auto  mt-2 md:mt-0  z-10 shadow-md">
-            <div className="flex justify-between">
-              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
-                crypto chat
-              </h2>
-              <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
-                points - 100+
-              </h2>
-            </div>
-            <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
-              support content creators with crypto
-            </p>
-            <div className="flex flex-wrap justify-center">
-              <div className="w-6/12 sm:w-4/12">
-                <img
-                  src="./wba.jpg"
-                  alt="..."
-                  className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
-                />
-                <div className="flex  justify-center items-center mx-auto ">
-                  <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
-                    WEB3 Builder
-                  </h2>
-                  <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
-                </div>
-              </div>
-            </div>
-
-            <div class="relative mb-4">
-              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
-                amount
-              </h2>
-              <h1
-                className={`text-lg font-extrabold leading-none tracking-tight text-${color} md:text-5xl lg:text-5xl dark:text-white text-center`}
-              >
-                {price}
-              </h1>
-            </div>
-            <div className="flex justify-between mt-2 ">
-              <button
-                class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                onClick={() => {
-                  setPrice("$0.25");
-                  setColor("green-500");
-                  setAmount(0.25);
-                }}
-              >
-                send $.25
-              </button>
-              <button
-                class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                onClick={() => {
-                  setPrice("$0.50");
-                  setColor("blue-500");
-                  setAmount(0.5);
-                }}
-              >
-                send $.50
-              </button>
-              <button
-                class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                onClick={() => {
-                  setPrice("$0.75");
-                  setColor("orange-400 ");
-                  setAmount(0.75);
-                }}
-              >
-                send $.75
-              </button>
-              <button
-                class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                onClick={() => {
-                  setPrice("$0.1");
-                  setColor("red-500");
-                  setAmount(0.1);
-                }}
-              >
-                send $0.1
-              </button>
-            </div>
-            <div class="relative mb-4">
-              <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-xl mt-4 dark:text-white">
-                any message
-              </h2>
-              <input
-                id="message"
-                name="message"
-                placeholder="any message from your side ..."
-                class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-              ></input>
-            </div>
-            <div className="flex justify-center">
-              <button
-                onClick={pay}
-                className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
-              >
-                send {price}
-              </button>
-
-              <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
-                {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
-
-                <GenQR
-                  setModalOpen={setTransactionQRModalOpen}
-                  userAddress={userAddress}
-                  setQrCode={setQrCode}
-                />
-                <TransactionQRModal
-                  modalOpen={transactionQRModalOpen}
-                  setModalOpen={setTransactionQRModalOpen}
-                  userAddress={userAddress}
-                  myKey={publicKey}
-                  setQrCode={setQrCode}
-                />
+      <div className="flex justify-center absolute w-full items-center py-5 mt-10 rounded-xl">
+        <div class="bg-black w-1/3 p-10 rounded-3xl">
+          <div className="flex justify-between">
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+              crypto chat
+            </h2>
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
+              points - 100+
+            </h2>
+          </div>
+          <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
+            support content creators with crypto
+          </p>
+          <div className="flex flex-wrap justify-center">
+            <div className="w-6/12 sm:w-4/12">
+              <img
+                src="./wba.jpg"
+                alt="..."
+                className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
+              />
+              <div className="flex  justify-center items-center mx-auto ">
+                <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
+                  WEB3 Builder
+                </h2>
+                <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
               </div>
             </div>
           </div>
-          <div class="lg:w-1/2 md:w-1/2 bg-black rounded-xl overflow-hidden sm:mr-10 p-10 mx-5 flex items-end justify-start relative">
+
+          <div class="relative mb-4">
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+              amount
+            </h2>
+            <h1
+              className={`text-lg font-extrabold leading-none tracking-tight text-${color} md:text-5xl lg:text-5xl dark:text-white text-center`}
+            >
+              {price}
+            </h1>
+          </div>
+          <div className="flex justify-between mt-2 ">
+            <button
+              class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+              onClick={() => {
+                setPrice("$0.25");
+                setColor("green-500");
+                setAmount(0.25);
+              }}
+            >
+              send $.25
+            </button>
+            <button
+              class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+              onClick={() => {
+                setPrice("$0.50");
+                setColor("blue-500");
+                setAmount(0.5);
+              }}
+            >
+              send $.50
+            </button>
+            <button
+              class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+              onClick={() => {
+                setPrice("$0.75");
+                setColor("orange-400 ");
+                setAmount(0.75);
+              }}
+            >
+              send $.75
+            </button>
+            <button
+              class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+              onClick={() => {
+                setPrice("$0.1");
+                setColor("red-500");
+                setAmount(0.1);
+              }}
+            >
+              send $0.1
+            </button>
+          </div>
+          <div class="relative mb-4">
+            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-xl mt-4 dark:text-white">
+              any message
+            </h2>
+            <input
+              id="message"
+              name="message"
+              placeholder="any message from your side ..."
+              class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+            ></input>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={pay}
+              className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
+            >
+              send {price}
+            </button>
+
+            <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
+              {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
+
+              <GenQR
+                setModalOpen={setTransactionQRModalOpen}
+                userAddress={userAddress}
+                setQrCode={setQrCode}
+              />
+              <TransactionQRModal
+                modalOpen={transactionQRModalOpen}
+                setModalOpen={setTransactionQRModalOpen}
+                userAddress={userAddress}
+                myKey={publicKey}
+                setQrCode={setQrCode}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <section class="text-gray-600 body-font ">
+        <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
+          
+          <div class="lg:w-1/2 md:w-1/2 bg-transparent rounded-xl overflow-hidden sm:mr-10 p-10 mx-5 flex items-end justify-start relative">
             <div
               width="100%"
               height="100%"
@@ -184,7 +187,7 @@ const PaymentModal = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };
