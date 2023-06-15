@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
-import { useCashApp } from "../hooks/Pay";
-import Action from "./transaction/Action";
-import GenQR from "./transaction/GenQR";
-import TransactionQRModal from "./transaction/TransactionQRModal";
-import BigNumber from "bignumber.js";
-const PaymentModal = () => {
-  const { doTransaction, receiver, amount, setAmount } = useCashApp();
+import { useCashApp } from "../../hooks/Pay";
+import GenQR from "../../components/transaction/GenQR";
+import TransactionQRModal from "../../components/transaction/TransactionQRModal";
+import Navbar from "../../components/Navbar";
+import Hero from "../../components/Hero";
+import { useRouter } from "next/router";
+import db from "../../db/db";
+import { collection, getDocs } from "firebase/firestore";
 
+const PaymentModal = () => {
+  const router = useRouter();
+  const { user } = router.query;
+  const { doTransaction, receiver, amount, setAmount } = useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
-
-  //
   const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
   const [qrCode, setQrCode] = useState(false);
 
-  const {
-    connected,
-    publicKey,
-    avatar,
-    userAddress,
-    transactions,
-    newTransactionModalOpen,
-    setNewTransactionModalOpen,
-  } = useCashApp();
+  const { publicKey, userAddress } = useCashApp();
 
-  const [paymentsTab, setPaymentsTab] = useState(false);
+  const getData = async () => {
+    const querySnapshot = await getDocs(collection(db, "cryptochat"));
+    querySnapshot.forEach((doc) => {
+      if(doc.data().name=="wba"){
+        console.log(doc.data().desc);
+      }
+    });
+  };
+getData()
 
-  //
   const pay = async () => {
     await doTransaction({
       amount,
@@ -38,6 +40,8 @@ const PaymentModal = () => {
   };
   return (
     <>
+      <Navbar />
+      <Hero />
       <div className="flex justify-center absolute w-full items-center py-5 mt-10 rounded-xl">
         <div class="bg-black w-1/3 p-10 rounded-3xl">
           <div className="flex justify-between">
@@ -54,7 +58,7 @@ const PaymentModal = () => {
           <div className="flex flex-wrap justify-center">
             <div className="w-6/12 sm:w-4/12">
               <img
-                src="./wba.jpg"
+                src="../../wba.jpg"
                 alt="..."
                 className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
               />

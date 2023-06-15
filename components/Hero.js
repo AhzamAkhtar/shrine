@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PaymentModal from "./PaymentModal";
+import {PaymentModal} from '../pages/cryptochat/[slug]'
 const Hero = () => {
   return (
     <>
@@ -19,7 +19,7 @@ const Hero = () => {
           objectFit="cover"
         />
       </div>
-      <PaymentModal/>
+   
       
     </>
   );
