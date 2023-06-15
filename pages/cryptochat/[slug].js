@@ -10,9 +10,8 @@ import { useRouter } from "next/router";
 import db from "../../db/db";
 import { collection, getDocs } from "firebase/firestore";
 
-const PaymentModal = () => {
-  const router = useRouter();
-  const { user } = router.query;
+const PaymentModal = (props) => {
+  const  user  = props.slug;
   const { doTransaction, receiver, amount, setAmount } = useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
@@ -24,8 +23,9 @@ const PaymentModal = () => {
   const getData = async () => {
     const querySnapshot = await getDocs(collection(db, "cryptochat"));
     querySnapshot.forEach((doc) => {
-      if(doc.data().name=="wba"){
+      if(doc.data().name==user){
         console.log(doc.data().desc);
+        console.log(`testing slug ${user}`)
       }
     });
   };
@@ -195,5 +195,13 @@ getData()
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  const {slug} = context.query
+  console.log(`slug is my ${slug}`)
+  return {
+    props : {slug}
+  }
+}
 
 export default PaymentModal;
