@@ -36,7 +36,7 @@ const PaymentModal = (props) => {
     }
   }, [connected]);
 
-  console.log(userPubkey)
+  console.log(userPubkey);
 
   useEffect(() => {
     const getMessageData = async () => {
@@ -80,7 +80,7 @@ const PaymentModal = (props) => {
       message: message,
       amount: amount,
       msgColor: msgColor,
-      from : userPubkey
+      from: userPubkey,
     });
   };
 
@@ -99,6 +99,7 @@ const PaymentModal = (props) => {
     <>
       <Navbar />
       <Hero />
+
       {showChat ? (
         <>
           <section class="text-gray-600 body-font mx-5 py-24">
@@ -120,8 +121,12 @@ const PaymentModal = (props) => {
                       ) : (
                         <>
                           <div class="xl:w-1/3 md:w-1/2 p-4">
-                            <div class={`border border-gray-200 p-6 rounded-lg bg-white`}>
-                            <h2 class={`text-lg text-${item.msgColor} font-medium title-font mb-2`}>
+                            <div
+                              class={`border border-gray-200 p-6 rounded-lg bg-white`}
+                            >
+                              <h2
+                                class={`text-lg text-${item.msgColor} font-medium title-font mb-2`}
+                              >
                                 amount
                               </h2>
                               {/* <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
@@ -137,7 +142,9 @@ const PaymentModal = (props) => {
                                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                                 </svg>
                               </div> */}
-                              <h2 class={`text-xl text-${item.msgColor} font-medium title-font mb-2`}>
+                              <h2
+                                class={`text-xl text-${item.msgColor} font-medium title-font mb-2`}
+                              >
                                 ${item.amount}
                               </h2>
                               <h2 class="leading-relaxed text-base">
