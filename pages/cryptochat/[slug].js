@@ -8,20 +8,48 @@ import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
 import db from "../../db/db";
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const PaymentModal = (props) => {
+  const { connected, userPublickey } = useWallet();
+  const [userPubkey, setUserPubkey] = useState(
+    "11111111111111111111111111111111"
+  );
   const [data, setData] = useState([]);
   const user = props.slug;
-  const { doTransaction, receiver, amount, setAmount, setReceiver } =
-    useCashApp();
+  const { doTransaction, amount, setAmount } = useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
   const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
   const [qrCode, setQrCode] = useState(false);
   const [message, setMessage] = useState();
   const [msgColor, setMsgColor] = useState("orange-400");
+  const [showChat, setShowChat] = useState(true);
+  const [messageData, setmessageData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { publicKey, userAddress } = useCashApp();
+
+  useEffect(() => {
+    if (connected) {
+      setUserPubkey(publicKey.toString());
+    }
+  }, [connected]);
+
+  console.log(userPubkey)
+
+  useEffect(() => {
+    const getMessageData = async () => {
+      const array = [];
+      const querySnapshot = await getDocs(collection(db, "message"));
+      querySnapshot.forEach((doc) => {
+        array.push(doc.data());
+      });
+      setmessageData(array);
+    };
+    getMessageData();
+    console.log(messageData);
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -41,9 +69,9 @@ const PaymentModal = (props) => {
       receiver,
       amount,
     });
-    setMessage("")
-    setPrice("$0.25")
-    setColor("green-500")
+    setMessage("");
+    setPrice("$0.25");
+    setColor("green-500");
   };
 
   const addMessage = async () => {
@@ -51,7 +79,8 @@ const PaymentModal = (props) => {
       name: user,
       message: message,
       amount: amount,
-      msgColor : msgColor
+      msgColor: msgColor,
+      from : userPubkey
     });
   };
 
@@ -60,7 +89,7 @@ const PaymentModal = (props) => {
   };
 
   const execute = () => {
-    pay(data.address , msgColor);
+    pay(data.address);
     if (message) {
       addMessage();
     }
@@ -70,131 +99,188 @@ const PaymentModal = (props) => {
     <>
       <Navbar />
       <Hero />
-      <div className="flex justify-center absolute w-full items-center py-5 mt-10 rounded-xl">
-        <div class="bg-black w-1/3 p-10 rounded-3xl">
-          <div className="flex justify-between">
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
-              crypto chat
-            </h2>
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
-              points - 100+
-            </h2>
-          </div>
-          <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
-            support content creators with crypto
-          </p>
-          <div className="flex flex-wrap justify-center">
-            <div className="w-6/12 sm:w-4/12">
-              <img
-                src={data.profilePhoto}
-                alt="..."
-                className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
-              />
-              <div className="flex  justify-center items-center mx-auto ">
-                <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
-                  {data.name}
+      {showChat ? (
+        <>
+          <section class="text-gray-600 body-font mx-5 py-24">
+            <div class="container px-20 py-5 mx-auto ">
+              <div class="flex flex-wrap -m-5 px-24 py-1 sm:px-2 ">
+                {}
+                {messageData.map((item, keys) => {
+                  return (
+                    <>
+                      {loading ? (
+                        <>
+                          <Image
+                            src="/yellowLoader.gif"
+                            width={50}
+                            height={50}
+                            className="m-auto"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div class="xl:w-1/3 md:w-1/2 p-4">
+                            <div class={`border border-gray-200 p-6 rounded-lg bg-${item.msgColor}`}>
+                              <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                                <svg
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  class="w-6 h-6"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                              </div>
+                              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
+                                {item.amount}
+                              </h2>
+                              <p class="leading-relaxed text-base">
+                                {item.message}
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          <div className="flex justify-center absolute w-full items-center py-5 mt-10 rounded-xl">
+            <div class="bg-black w-1/3 p-10 rounded-3xl">
+              <div className="flex justify-between">
+                <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+                  crypto chat
                 </h2>
-                <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
+                <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
+                  points - 100+
+                </h2>
+              </div>
+              <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
+                support content creators with crypto
+              </p>
+              <div className="flex flex-wrap justify-center">
+                <div className="w-6/12 sm:w-4/12">
+                  <img
+                    src={data.profilePhoto}
+                    alt="..."
+                    className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
+                  />
+                  <div className="flex  justify-center items-center mx-auto ">
+                    <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
+                      {data.name}
+                    </h2>
+                    <AiFillYoutube className="text-red-600 mt-auto mx-auto  text-3xl" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative mb-4">
+                <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
+                  amount
+                </h2>
+                <h1
+                  className={`text-lg font-extrabold leading-none tracking-tight text-${color} md:text-5xl lg:text-5xl dark:text-white text-center`}
+                >
+                  {price}
+                </h1>
+              </div>
+              <div className="flex justify-between mt-2 ">
+                <button
+                  class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                  onClick={() => {
+                    setPrice("$0.25");
+                    setColor("green-500");
+                    setAmount(0.25);
+                    setMsgColor("green-500");
+                  }}
+                >
+                  send $.25
+                </button>
+                <button
+                  class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                  onClick={() => {
+                    setPrice("$0.50");
+                    setColor("blue-500");
+                    setAmount(0.5);
+                    setMsgColor("blue-500");
+                  }}
+                >
+                  send $.50
+                </button>
+                <button
+                  class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                  onClick={() => {
+                    setPrice("$0.75");
+                    setColor("orange-400 ");
+                    setAmount(0.75);
+                    setMsgColor("orange-400");
+                  }}
+                >
+                  send $.75
+                </button>
+                <button
+                  class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                  onClick={() => {
+                    setPrice("$0.1");
+                    setColor("red-500");
+                    setAmount(0.1);
+                    setMsgColor("red-500");
+                  }}
+                >
+                  send $0.1
+                </button>
+              </div>
+              <div class="relative mb-4">
+                <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-xl mt-4 dark:text-white">
+                  any message
+                </h2>
+                <input
+                  id="message"
+                  onChange={messageHandler}
+                  value={message}
+                  name="message"
+                  placeholder="any message from your side ..."
+                  class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                ></input>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => execute()}
+                  className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
+                >
+                  send {price}
+                </button>
+
+                <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
+                  {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
+
+                  <GenQR
+                    setModalOpen={setTransactionQRModalOpen}
+                    userAddress={userAddress}
+                    setQrCode={setQrCode}
+                  />
+                  <TransactionQRModal
+                    modalOpen={transactionQRModalOpen}
+                    setModalOpen={setTransactionQRModalOpen}
+                    userAddress={userAddress}
+                    myKey={publicKey}
+                    setQrCode={setQrCode}
+                  />
+                </div>
               </div>
             </div>
           </div>
+        </>
+      )}
 
-          <div class="relative mb-4">
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-3xl dark:text-white">
-              amount
-            </h2>
-            <h1
-              className={`text-lg font-extrabold leading-none tracking-tight text-${color} md:text-5xl lg:text-5xl dark:text-white text-center`}
-            >
-              {price}
-            </h1>
-          </div>
-          <div className="flex justify-between mt-2 ">
-            <button
-              class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-              onClick={() => {
-                setPrice("$0.25");
-                setColor("green-500");
-                setAmount(0.25);
-                setMsgColor("text-green-500");
-              }}
-            >
-              send $.25
-            </button>
-            <button
-              class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-              onClick={() => {
-                setPrice("$0.50");
-                setColor("blue-500");
-                setAmount(0.5);
-                setMsgColor("text-blue-500");
-              }}
-            >
-              send $.50
-            </button>
-            <button
-              class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-              onClick={() => {
-                setPrice("$0.75");
-                setColor("orange-400 ");
-                setAmount(0.75);
-                setMsgColor("text-orange-400");
-              }}
-            >
-              send $.75
-            </button>
-            <button
-              class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-              onClick={() => {
-                setPrice("$0.1");
-                setColor("red-500");
-                setAmount(0.1);
-                setMsgColor("text-red-500");
-              }}
-            >
-              send $0.1
-            </button>
-          </div>
-          <div class="relative mb-4">
-            <h2 class="text-lg font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-xl mt-4 dark:text-white">
-              any message
-            </h2>
-            <input
-              id="message"
-              onChange={messageHandler}
-              value={message}
-              name="message"
-              placeholder="any message from your side ..."
-              class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-            ></input>
-          </div>
-          <div className="flex justify-center">
-            <button
-              onClick={() => execute()}
-              className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
-            >
-              send {price}
-            </button>
-
-            <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
-              {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
-
-              <GenQR
-                setModalOpen={setTransactionQRModalOpen}
-                userAddress={userAddress}
-                setQrCode={setQrCode}
-              />
-              <TransactionQRModal
-                modalOpen={transactionQRModalOpen}
-                setModalOpen={setTransactionQRModalOpen}
-                userAddress={userAddress}
-                myKey={publicKey}
-                setQrCode={setQrCode}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
       {/* <section class="text-gray-600 body-font ">
         <div class="container px-2 py-20 mx-auto m-auto flex sm:flex-nowrap flex-wrap">
           
