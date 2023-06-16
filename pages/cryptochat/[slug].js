@@ -120,8 +120,11 @@ const PaymentModal = (props) => {
                       ) : (
                         <>
                           <div class="xl:w-1/3 md:w-1/2 p-4">
-                            <div class={`border border-gray-200 p-6 rounded-lg bg-${item.msgColor}`}>
-                              <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
+                            <div class={`border border-gray-200 p-6 rounded-lg bg-white`}>
+                            <h2 class={`text-lg text-${item.msgColor} font-medium title-font mb-2`}>
+                                amount
+                              </h2>
+                              {/* <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
                                 <svg
                                   fill="none"
                                   stroke="currentColor"
@@ -133,12 +136,18 @@ const PaymentModal = (props) => {
                                 >
                                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                                 </svg>
-                              </div>
-                              <h2 class="text-lg text-gray-900 font-medium title-font mb-2">
-                                {item.amount}
+                              </div> */}
+                              <h2 class={`text-xl text-${item.msgColor} font-medium title-font mb-2`}>
+                                ${item.amount}
                               </h2>
-                              <p class="leading-relaxed text-base">
+                              <h2 class="leading-relaxed text-base">
+                                message :
+                              </h2>
+                              <p class="leading-relaxed text-xl mt-2">
                                 {item.message}
+                              </p>
+                              <p class="leading-relaxed text-base mt-2">
+                                from : 96bnZMD...
                               </p>
                             </div>
                           </div>
