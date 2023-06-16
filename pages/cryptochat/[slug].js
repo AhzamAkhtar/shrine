@@ -6,18 +6,20 @@ import GenQR from "../../components/transaction/GenQR";
 import TransactionQRModal from "../../components/transaction/TransactionQRModal";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
-import { useRouter } from "next/router";
 import db from "../../db/db";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 const PaymentModal = (props) => {
   const [data, setData] = useState([]);
   const user = props.slug;
-  const { doTransaction, receiver, amount, setAmount, setReceiver } = useCashApp();
+  const { doTransaction, receiver, amount, setAmount, setReceiver } =
+    useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
   const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
   const [qrCode, setQrCode] = useState(false);
+  const [message, setMessage] = useState();
+  const [msgColor, setMsgColor] = useState("orange-400");
 
   const { publicKey, userAddress } = useCashApp();
 
@@ -26,13 +28,12 @@ const PaymentModal = (props) => {
       const querySnapshot = await getDocs(collection(db, "cryptochat"));
       querySnapshot.forEach((doc) => {
         if (doc.data().name == user) {
-          //console.log(doc.data());
           setData(doc.data());
         }
       });
     };
-    getData()
-  },[]);
+    getData();
+  }, []);
 
   const pay = async (receiver) => {
     await doTransaction({
@@ -40,7 +41,31 @@ const PaymentModal = (props) => {
       receiver,
       amount,
     });
+    setMessage("")
+    setPrice("$0.25")
+    setColor("green-500")
   };
+
+  const addMessage = async () => {
+    await addDoc(collection(db, "message"), {
+      name: user,
+      message: message,
+      amount: amount,
+      msgColor : msgColor
+    });
+  };
+
+  const messageHandler = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const execute = () => {
+    pay(data.address , msgColor);
+    if (message) {
+      addMessage();
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -91,6 +116,7 @@ const PaymentModal = (props) => {
                 setPrice("$0.25");
                 setColor("green-500");
                 setAmount(0.25);
+                setMsgColor("text-green-500");
               }}
             >
               send $.25
@@ -101,6 +127,7 @@ const PaymentModal = (props) => {
                 setPrice("$0.50");
                 setColor("blue-500");
                 setAmount(0.5);
+                setMsgColor("text-blue-500");
               }}
             >
               send $.50
@@ -111,6 +138,7 @@ const PaymentModal = (props) => {
                 setPrice("$0.75");
                 setColor("orange-400 ");
                 setAmount(0.75);
+                setMsgColor("text-orange-400");
               }}
             >
               send $.75
@@ -121,6 +149,7 @@ const PaymentModal = (props) => {
                 setPrice("$0.1");
                 setColor("red-500");
                 setAmount(0.1);
+                setMsgColor("text-red-500");
               }}
             >
               send $0.1
@@ -132,6 +161,8 @@ const PaymentModal = (props) => {
             </h2>
             <input
               id="message"
+              onChange={messageHandler}
+              value={message}
               name="message"
               placeholder="any message from your side ..."
               class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
@@ -139,7 +170,7 @@ const PaymentModal = (props) => {
           </div>
           <div className="flex justify-center">
             <button
-              onClick={()=>pay(data.address)}
+              onClick={() => execute()}
               className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
             >
               send {price}
