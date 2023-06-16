@@ -13,7 +13,7 @@ import { collection, getDocs } from "firebase/firestore";
 const PaymentModal = (props) => {
   const [data, setData] = useState([]);
   const user = props.slug;
-  const { doTransaction, receiver, amount, setAmount } = useCashApp();
+  const { doTransaction, receiver, amount, setAmount, setReceiver } = useCashApp();
   const [price, setPrice] = useState("$0.75");
   const [color, setColor] = useState("orange-400");
   const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
@@ -26,16 +26,15 @@ const PaymentModal = (props) => {
       const querySnapshot = await getDocs(collection(db, "cryptochat"));
       querySnapshot.forEach((doc) => {
         if (doc.data().name == user) {
-          console.log(doc.data());
+          //console.log(doc.data());
           setData(doc.data());
-          console.log(`data ${data}`);
         }
       });
     };
     getData()
   },[]);
 
-  const pay = async () => {
+  const pay = async (receiver) => {
     await doTransaction({
       amount,
       receiver,
@@ -140,7 +139,7 @@ const PaymentModal = (props) => {
           </div>
           <div className="flex justify-center">
             <button
-              onClick={pay}
+              onClick={()=>pay(data.address)}
               className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
             >
               send {price}

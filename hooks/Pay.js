@@ -13,7 +13,7 @@ export const useCashApp = () => {
     const [avatar, setAvatar] = useState("")
     const {connection} = useConnection()
     const [amount,setAmount] = useState(0.25)
-    const [receiver, setReceiver] = useState('3E2jtsGv2SdHFK6YyJhqCNuvSBZbzJotwwqp9tNeELMw')
+    const [receiver, setReceiver] = useState('')
     const [transactionPurpose, setTransactionPurpose] = useState('')
     const [newTransactionModalOpen, setNewTransactionModalOpen] = useState(false)
 
@@ -109,6 +109,8 @@ export const useCashApp = () => {
         //setTransactions([newTransaction, ...transactions])
     }
 
+    
+
     return { connected,
              publicKey, 
              avatar, 
@@ -125,4 +127,7 @@ export const useCashApp = () => {
              newTransactionModalOpen, 
              setNewTransactionModalOpen,
             }
+
+            
 }
+
