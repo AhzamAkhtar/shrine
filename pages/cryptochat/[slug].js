@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
 import { useCashApp } from "../../hooks/Pay";
@@ -6,12 +7,18 @@ import GenQR from "../../components/transaction/GenQR";
 import TransactionQRModal from "../../components/transaction/TransactionQRModal";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
+import styles from "../../styles/Wallet.module.css"
 import db from "../../db/db";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
 
 const PaymentModal = (props) => {
+  const WalletMultiButtonDynamic = dynamic(
+    async () =>
+      (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+    { ssr: false }
+  );
   const { connected, userPublickey } = useWallet();
   const [userPubkey, setUserPubkey] = useState(
     "11111111111111111111111111111111"
@@ -340,7 +347,10 @@ const PaymentModal = (props) => {
                   class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 ></input>
               </div>
-              <div className="flex justify-center">
+              <div>
+                {connected ? (
+                  <>
+                  <div className="flex justify-center">
                 <button
                   onClick={() => execute()}
                   className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
@@ -365,6 +375,15 @@ const PaymentModal = (props) => {
                   />
                 </div>
               </div>
+                  </>
+                ): (
+                  <div className="flex justify-center">
+                  
+                    <WalletMultiButtonDynamic className={styles.button}/>
+                  </div>
+                )}
+              </div>
+             
             </div>
           </div>
         </>

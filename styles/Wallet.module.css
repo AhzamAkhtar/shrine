@@ -5,9 +5,27 @@
     font-weight: bolder;
     font-stretch: expanded;
     font-size: large;
+    text-align: center;
+    justify-items: center;
+    box-sizing: border-box;
+    line-height: 80px;
  }
+
   
  .wallet-button:hover {
    border: 2px solid grey !important;
    color: white !important;
  }
+
+
+ .wallet{
+  color: white !important;
+  text-transform: lowercase;
+  font-weight: bolder;
+  font-stretch: expanded;
+  font-size: large;
+  text-align: center;
+  justify-items: center;
+  box-sizing: border-box;
+  line-height: 80px;
+}
