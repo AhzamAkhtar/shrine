@@ -21,7 +21,7 @@ const TransactionQRModal = ({
   userAddress,
   setQrCode,
 }) => {
-  const [payam, setpayam] = useState(new BigNumber("0.14"));
+  const [payam, setpayam] = useState(new BigNumber("0.25"));
   const { transactions, setTransactions } = useCashApp();
   const qrRef = useRef();
   const { connection } = useConnection();
@@ -34,7 +34,7 @@ const TransactionQRModal = ({
     const recipient = new PublicKey(userAddress);
     const amount = payam;
     const reference = Keypair.generate().publicKey;
-    const label = "Velocity Payments";
+    const label = "shrine";
     const message = "Thanks for the Payment!";
 
     const urlParams = {
@@ -123,7 +123,7 @@ const TransactionQRModal = ({
         <div className="flex flex-col items-center justify-center space-y-1">
           {/* <p className="text-lg font-medium text-gray-800">{truncate(userAddress)}</p> */}
           <p className="flex justify-left mx-10 text-black text-xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white">
-            scan to pay $0.25
+            scan to pay
           </p>
           {/* <p className="text-sm font-light text-gray-600">Scan to pay ${truncate(userAddress)}</p> */}
 

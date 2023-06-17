@@ -29,7 +29,9 @@ const PaymentModal = (props) => {
   const [messageData, setmessageData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [toggleHeading , setToggleHeading] = useState("Show Chat")
-
+  const [toPubkey , setToPubkey] = useState(
+  "11111111111111111111111111111111"
+  )
   const { publicKey, userAddress } = useCashApp();
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const PaymentModal = (props) => {
       querySnapshot.forEach((doc) => {
         if (doc.data().name == user) {
           setData(doc.data());
+          setToPubkey(doc.data().address)
           setLoading(false);
         }
       });
@@ -356,7 +359,7 @@ const PaymentModal = (props) => {
                   <TransactionQRModal
                     modalOpen={transactionQRModalOpen}
                     setModalOpen={setTransactionQRModalOpen}
-                    userAddress={userAddress}
+                    userAddress={toPubkey}
                     myKey={publicKey}
                     setQrCode={setQrCode}
                   />
