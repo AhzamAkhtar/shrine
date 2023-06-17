@@ -85,6 +85,18 @@ const PaymentModal = (props) => {
     getData();
   }, []);
 
+  useEffect(() => {
+    const fetchPoints = async () => {
+      const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
+      querySnapshot.forEach((doc) => {
+        if (doc.data().user == userPubkey) {
+          setPoints(doc.data().points);
+        }
+      });
+    };
+    fetchPoints()
+  }, [amount]);
+
   const managePoints = async () => {
     const TuserPubkey = [];
     const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
@@ -115,8 +127,9 @@ const PaymentModal = (props) => {
       }
     });
     const Tdocumnet = doc(db, "users_cryptochat", docIdForUpdatingPoint);
+    const updatedPoints = points + 10
     await updateDoc(Tdocumnet, {
-      points: 100,
+      points: updatedPoints,
     });
   };
 
@@ -271,7 +284,7 @@ const PaymentModal = (props) => {
                   crypto chat
                 </h2>
                 <h2 class="text-lg font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-lg dark:text-white">
-                  points - 100+
+                  points - {points}
                 </h2>
               </div>
               <p class="text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg mt-2 dark:text-white">
