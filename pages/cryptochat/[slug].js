@@ -61,7 +61,9 @@ const PaymentModal = (props) => {
       const array = [];
       const querySnapshot = await getDocs(collection(db, "message"));
       querySnapshot.forEach((doc) => {
-        array.push(doc.data());
+        if (doc.data().name == user) {
+          array.push(doc.data());
+        }
       });
       setmessageData(array);
       setLoading(false);
@@ -94,7 +96,7 @@ const PaymentModal = (props) => {
         }
       });
     };
-    fetchPoints()
+    fetchPoints();
   }, [amount]);
 
   const managePoints = async () => {
@@ -127,7 +129,7 @@ const PaymentModal = (props) => {
       }
     });
     const Tdocumnet = doc(db, "users_cryptochat", docIdForUpdatingPoint);
-    const updatedPoints = points + 10
+    const updatedPoints = points + 10;
     await updateDoc(Tdocumnet, {
       points: updatedPoints,
     });
