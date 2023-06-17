@@ -9,6 +9,7 @@ import Hero from "../../components/Hero";
 import db from "../../db/db";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { truncate } from "../../utils/string";
 
 const PaymentModal = (props) => {
   const { connected, userPublickey } = useWallet();
@@ -184,7 +185,7 @@ const PaymentModal = (props) => {
                                 {item.message}
                               </p>
                               <p class="leading-relaxed text-base mt-2">
-                                from : 96bnZMD...
+                              from : {truncate(item.from)}
                               </p>
                             </div>
                           </div>
