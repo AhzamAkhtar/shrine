@@ -7,9 +7,15 @@ import GenQR from "../../components/transaction/GenQR";
 import TransactionQRModal from "../../components/transaction/TransactionQRModal";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
-import styles from "../../styles/Wallet.module.css"
+import styles from "../../styles/Wallet.module.css";
 import db from "../../db/db";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
 
@@ -35,11 +41,11 @@ const PaymentModal = (props) => {
   const [showChat, setShowChat] = useState(false);
   const [messageData, setmessageData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [toggleHeading , setToggleHeading] = useState("Show Chat")
-  const [toPubkey , setToPubkey] = useState(
-  "11111111111111111111111111111111"
-  )
+  const [points, setPoints] = useState(10);
+  const [toggleHeading, setToggleHeading] = useState("Show Chat");
+  const [toPubkey, setToPubkey] = useState("11111111111111111111111111111111");
   const { publicKey, userAddress } = useCashApp();
+  const [docIdForUpdatingPoint, setDocIdForUpdatingPoint] = useState();
 
   useEffect(() => {
     if (connected) {
@@ -71,13 +77,48 @@ const PaymentModal = (props) => {
       querySnapshot.forEach((doc) => {
         if (doc.data().name == user) {
           setData(doc.data());
-          setToPubkey(doc.data().address)
+          setToPubkey(doc.data().address);
           setLoading(false);
         }
       });
     };
     getData();
   }, []);
+
+  const managePoints = async () => {
+    const TuserPubkey = [];
+    const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
+    querySnapshot.forEach((doc) => {
+      TuserPubkey.push(doc.data().user);
+    });
+    console.log(TuserPubkey);
+    if (TuserPubkey.includes(userPubkey)) {
+      console.log("user exist");
+      increasePoints();
+    } else {
+      addUserForCrytoChat();
+    }
+  };
+
+  const addUserForCrytoChat = async () => {
+    await addDoc(collection(db, "users_cryptochat"), {
+      user: userPubkey,
+      points: points,
+    });
+  };
+
+  const increasePoints = async () => {
+    const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
+    querySnapshot.forEach((doc) => {
+      if (doc.data().user == userPubkey) {
+        setDocIdForUpdatingPoint(doc.id);
+      }
+    });
+    const Tdocumnet = doc(db, "users_cryptochat", docIdForUpdatingPoint);
+    await updateDoc(Tdocumnet, {
+      points: 100,
+    });
+  };
 
   const pay = async (receiver) => {
     await doTransaction({
@@ -109,16 +150,17 @@ const PaymentModal = (props) => {
     if (message) {
       addMessage();
     }
+    managePoints();
   };
 
   const toggle = () => {
     setShowChat(!showChat);
 
-    if(toggleHeading=="Show Chat"){
-      setToggleHeading("Support")
+    if (toggleHeading == "Show Chat") {
+      setToggleHeading("Support");
     }
-    if(toggleHeading =="Support"){
-      setToggleHeading("Show Chat")
+    if (toggleHeading == "Support") {
+      setToggleHeading("Show Chat");
     }
   };
 
@@ -195,7 +237,7 @@ const PaymentModal = (props) => {
                                 {item.message}
                               </p>
                               <p class="leading-relaxed text-base mt-2">
-                              from : {truncate(item.from)}
+                                from : {truncate(item.from)}
                               </p>
                             </div>
                           </div>
@@ -261,14 +303,14 @@ const PaymentModal = (props) => {
                     </>
                   ) : (
                     <>
-                    <img
-                    src={data.profilePhoto}
-                    alt="..."
-                    className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
-                  />
+                      <img
+                        src={data.profilePhoto}
+                        alt="..."
+                        className="shadow-lg rounded-full max-w-full h-auto align-middle border-none mt-5"
+                      />
                     </>
                   )}
-                  
+
                   <div className="flex  justify-center items-center mx-auto ">
                     <h2 class="text-base font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-lg dark:text-white text-center mt-2">
                       {data.name}
@@ -350,40 +392,38 @@ const PaymentModal = (props) => {
               <div>
                 {connected ? (
                   <>
-                  <div className="flex justify-center">
-                <button
-                  onClick={() => execute()}
-                  className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
-                >
-                  send {price}
-                </button>
+                    <div className="flex justify-center">
+                      <button
+                        onClick={() => execute()}
+                        className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
+                      >
+                        send {price}
+                      </button>
 
-                <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
-                  {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
+                      <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
+                        {/* <Action setModalOpen={setNewTransactionModalOpen} /> */}
 
-                  <GenQR
-                    setModalOpen={setTransactionQRModalOpen}
-                    userAddress={userAddress}
-                    setQrCode={setQrCode}
-                  />
-                  <TransactionQRModal
-                    modalOpen={transactionQRModalOpen}
-                    setModalOpen={setTransactionQRModalOpen}
-                    userAddress={toPubkey}
-                    myKey={publicKey}
-                    setQrCode={setQrCode}
-                  />
-                </div>
-              </div>
+                        <GenQR
+                          setModalOpen={setTransactionQRModalOpen}
+                          userAddress={userAddress}
+                          setQrCode={setQrCode}
+                        />
+                        <TransactionQRModal
+                          modalOpen={transactionQRModalOpen}
+                          setModalOpen={setTransactionQRModalOpen}
+                          userAddress={toPubkey}
+                          myKey={publicKey}
+                          setQrCode={setQrCode}
+                        />
+                      </div>
+                    </div>
                   </>
-                ): (
+                ) : (
                   <div className="flex justify-center">
-                  
-                    <WalletMultiButtonDynamic className={styles.button}/>
+                    <WalletMultiButtonDynamic className={styles.button} />
                   </div>
                 )}
               </div>
-             
             </div>
           </div>
         </>
