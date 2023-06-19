@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { AiFillYoutube } from "react-icons/ai";
 import Image from "next/image";
 import { useCashApp } from "../../hooks/Pay";
+import { useUSDCPay } from "../../hooks/PayUSDC";
 import GenQR from "../../components/transaction/GenQR";
 import TransactionQRModal from "../../components/transaction/TransactionQRModal";
 import Navbar from "../../components/Navbar";
@@ -18,8 +19,10 @@ import {
 } from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
+import { Transaction } from "@solana/web3.js";
 
 const PaymentModal = (props) => {
+  const { createTransaction } = useUSDCPay();
   const WalletMultiButtonDynamic = dynamic(
     async () =>
       (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
@@ -177,6 +180,15 @@ const PaymentModal = (props) => {
     if (toggleHeading == "Support") {
       setToggleHeading("Show Chat");
     }
+  };
+
+  const letsee = () => {
+    const txResponce = createTransaction();
+    const txData = txResponce;
+    //console.log(txData)
+
+    // const tx = Transaction.from(Buffer.from(txData,"base64"))
+    // console.log(tx)
   };
 
   return (
