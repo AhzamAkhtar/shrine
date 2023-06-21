@@ -20,14 +20,14 @@ const usdcAddress = new PublicKey(
 
 export const useUSDCPay = () => {
   const { sendTransaction } = useWallet();
-  const createTransaction = async () => {
-    const buyer = "qZGxJPUkLraCzkAv5K7R2SjeFNLLTQRevmfihvGE79D";
+  const createTransaction = async (buyerpubkey, sellerPubkey, amount) => {
+    //buyer jo khareedega and seller jaha jaaega
+    //const buyer = "qZGxJPUkLraCzkAv5K7R2SjeFNLLTQRevmfihvGE79D";
+    const buyer = new PublicKey(buyerpubkey);
 
-    const sellerPublicKey = new PublicKey(
-      "96bnZMDpCHWfUTRAfrjYLGXGmFYNDUqEqPWEGK78mK7K"
-    );
+    const sellerPublicKey = new PublicKey(sellerPubkey);
 
-    const itemPrice = 1;
+    const itemPrice = amount;
 
     const bigAmount = BigNumber(itemPrice);
     const buyerPublicKey = new PublicKey(buyer);
