@@ -17,6 +17,7 @@ import {
   addDoc,
   doc,
   updateDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
@@ -52,6 +53,19 @@ const PaymentModal = (props) => {
   const [docIdForUpdatingPoint, setDocIdForUpdatingPoint] = useState();
   const [customAmount, setCustomAmount] = useState(false);
   const [usdcPay, setUsdcPay] = useState(true);
+  const [date , setDate] = useState()
+
+  const getDate = (seconds) => {
+    var milliseconds = seconds * 1000; // Convert seconds to milliseconds
+    var day = new Date(milliseconds).getDate().toString()
+    var month = new Date(milliseconds).getMonth().toString()
+    var year = new Date(milliseconds).getFullYear().toString()
+    var date = day + - +month + - + year
+    console.log(date)
+    return(date)
+  };
+
+  getDate(1687319226)
 
   useEffect(() => {
     if (connected) {
@@ -61,16 +75,16 @@ const PaymentModal = (props) => {
 
   console.log(userPubkey);
 
-  useEffect(()=>{
-    if(usdcPay==true){
-      setAmount(15)
-      setPrice("15")
+  useEffect(() => {
+    if (usdcPay == true) {
+      setAmount(15);
+      setPrice("15");
     }
-    if(usdcPay==false){
-      setAmount(0.25)
-      setPrice("0.25")
+    if (usdcPay == false) {
+      setAmount(0.25);
+      setPrice("0.25");
     }
-  },[usdcPay])
+  }, [usdcPay]);
 
   useEffect(() => {
     setLoading(true);
@@ -79,6 +93,7 @@ const PaymentModal = (props) => {
       const querySnapshot = await getDocs(collection(db, "message"));
       querySnapshot.forEach((doc) => {
         if (doc.data().name == user) {
+          console.log(doc.data());
           array.push(doc.data());
         }
       });
@@ -170,6 +185,7 @@ const PaymentModal = (props) => {
       amount: amount,
       msgColor: msgColor,
       from: userPubkey,
+      serverTimestamp: serverTimestamp(),
     });
   };
 
@@ -193,9 +209,9 @@ const PaymentModal = (props) => {
     setShowChat(!showChat);
 
     if (toggleHeading == "Show Chat") {
-      setToggleHeading("Support");
+      setToggleHeading("Turn Off Chat");
     }
-    if (toggleHeading == "Support") {
+    if (toggleHeading == "Turn Off Chat") {
       setToggleHeading("Show Chat");
     }
   };
@@ -207,8 +223,8 @@ const PaymentModal = (props) => {
 
   const customAmountHandler = (e) => {
     //setCustomAmountValue(e.target.value)
-    setAmount(e.target.value)
-  }
+    setAmount(e.target.value);
+  };
 
   return (
     <>
@@ -253,11 +269,11 @@ const PaymentModal = (props) => {
                             <div
                               class={`border border-gray-200 p-6 rounded-lg bg-white`}
                             >
-                              <h2
+                              {/* <h2
                                 class={`text-lg text-${item.msgColor} font-medium title-font mb-2`}
                               >
                                 amount
-                              </h2>
+                              </h2> */}
                               {/* <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
                                 <svg
                                   fill="none"
@@ -272,19 +288,25 @@ const PaymentModal = (props) => {
                                 </svg>
                               </div> */}
                               <h2
-                                class={`text-xl text-${item.msgColor} font-medium title-font mb-2`}
+                                class={`text-3xl text-${item.msgColor} font-medium title-font mb-2`}
                               >
                                 ${item.amount}
                               </h2>
-                              <h2 class="leading-relaxed text-base">
+                              {/* <h2 class="leading-relaxed text-base">
                                 message :
-                              </h2>
+                              </h2> */}
                               <p class="leading-relaxed text-xl mt-2">
                                 {item.message}
                               </p>
-                              <p class="leading-relaxed text-base mt-2">
-                                from : {truncate(item.from)}
-                              </p>
+                              <div className="flex justify-between">
+                               
+                                <p class="leading-relaxed text-base mt-2">
+                                  from : {truncate(item.from)}
+                                </p>
+                                <p class="leading-relaxed text-base mt-2">
+                                  {getDate(item.serverTimestamp.seconds)}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </>
@@ -390,30 +412,9 @@ const PaymentModal = (props) => {
                   className={`text-lg font-extrabold leading-none tracking-tight text-${color} md:text-5xl lg:text-5xl dark:text-white text-center`}
                 >
                   {customAmount ? (
-                    <>
-                    {usdcPay ? (
-                      <>
-                        {amount} USDC
-                      </>
-                    ):(
-                      <>
-                        {amount} SOL
-                      </>
-                    )}
-                      
-                    </>
-                  ): (
-                    <>
-                    {usdcPay ? (
-                      <>
-                        {price} USDC
-                      </>
-                    ):(
-                      <>
-                        {price} SOL
-                      </>
-                    )}
-                    </>
+                    <>{usdcPay ? <>{amount} USDC</> : <>{amount} SOL</>}</>
+                  ) : (
+                    <>{usdcPay ? <>{price} USDC</> : <>{price} SOL</>}</>
                   )}
                 </h1>
               </div>
@@ -427,117 +428,116 @@ const PaymentModal = (props) => {
                       Enter your Amount
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       id="customAmountValue"
                       name="customAmountValue"
                       onChange={customAmountHandler}
                       value={amount}
-                      class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block w-full text-lg p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                 </>
               ) : (
                 <>
-                {usdcPay ? (
-                  <>
-                  <div className="flex justify-between mt-2 ">
-                    <button
-                      class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$5");
-                        setColor("green-500");
-                        setAmount(5);
-                        setMsgColor("green-500");
-                      }}
-                    >
-                      send $5
-                    </button>
-                    <button
-                      class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$10");
-                        setColor("blue-500");
-                        setAmount(10);
-                        setMsgColor("blue-500");
-                      }}
-                    >
-                      send $10
-                    </button>
-                    <button
-                      class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$15");
-                        setColor("orange-400 ");
-                        setAmount(15);
-                        setMsgColor("orange-400");
-                      }}
-                    >
-                      send $15
-                    </button>
-                    <button
-                      class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$20");
-                        setColor("red-500");
-                        setAmount(20);
-                        setMsgColor("red-500");
-                      }}
-                    >
-                      send $20
-                    </button>
-                  </div>
-                  </>
-                ) : (
-                  <>
-                  <div className="flex justify-between mt-2 ">
-                    <button
-                      class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$0.25");
-                        setColor("green-500");
-                        setAmount(0.25);
-                        setMsgColor("green-500");
-                      }}
-                    >
-                      send $.25
-                    </button>
-                    <button
-                      class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$0.50");
-                        setColor("blue-500");
-                        setAmount(0.5);
-                        setMsgColor("blue-500");
-                      }}
-                    >
-                      send $.50
-                    </button>
-                    <button
-                      class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$0.75");
-                        setColor("orange-400 ");
-                        setAmount(0.75);
-                        setMsgColor("orange-400");
-                      }}
-                    >
-                      send $.75
-                    </button>
-                    <button
-                      class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
-                      onClick={() => {
-                        setPrice("$0.1");
-                        setColor("red-500");
-                        setAmount(0.1);
-                        setMsgColor("red-500");
-                      }}
-                    >
-                      send $0.1
-                    </button>
-                  </div>
-                  </>
-                )}
-                  
+                  {usdcPay ? (
+                    <>
+                      <div className="flex justify-between mt-2 ">
+                        <button
+                          class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$5");
+                            setColor("green-500");
+                            setAmount(5);
+                            setMsgColor("green-500");
+                          }}
+                        >
+                          send $5
+                        </button>
+                        <button
+                          class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$10");
+                            setColor("blue-500");
+                            setAmount(10);
+                            setMsgColor("blue-500");
+                          }}
+                        >
+                          send $10
+                        </button>
+                        <button
+                          class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$15");
+                            setColor("orange-400 ");
+                            setAmount(15);
+                            setMsgColor("orange-400");
+                          }}
+                        >
+                          send $15
+                        </button>
+                        <button
+                          class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$20");
+                            setColor("red-500");
+                            setAmount(20);
+                            setMsgColor("red-500");
+                          }}
+                        >
+                          send $20
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex justify-between mt-2 ">
+                        <button
+                          class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$0.25");
+                            setColor("green-500");
+                            setAmount(0.25);
+                            setMsgColor("green-500");
+                          }}
+                        >
+                          send $.25
+                        </button>
+                        <button
+                          class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$0.50");
+                            setColor("blue-500");
+                            setAmount(0.5);
+                            setMsgColor("blue-500");
+                          }}
+                        >
+                          send $.50
+                        </button>
+                        <button
+                          class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$0.75");
+                            setColor("orange-400 ");
+                            setAmount(0.75);
+                            setMsgColor("orange-400");
+                          }}
+                        >
+                          send $.75
+                        </button>
+                        <button
+                          class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
+                          onClick={() => {
+                            setPrice("$0.1");
+                            setColor("red-500");
+                            setAmount(0.1);
+                            setMsgColor("red-500");
+                          }}
+                        >
+                          send $0.1
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
 
@@ -556,6 +556,7 @@ const PaymentModal = (props) => {
                   onChange={messageHandler}
                   value={message}
                   name="message"
+                  autocomplete="off"
                   placeholder="any message from your side ..."
                   class="w-full mt-4 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 ></input>
@@ -568,7 +569,7 @@ const PaymentModal = (props) => {
                         onClick={() => execute()}
                         className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
                       >
-                        send {price}
+                        send {amount}
                       </button>
 
                       <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
