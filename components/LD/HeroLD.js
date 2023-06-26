@@ -3,6 +3,8 @@
 }
 import React from "react";
 import HighightContet from "./HighightContent";
+import FindCreators from "./FindCreators";
+import AirdropContent from "./AirdropContent";
 
 const HeroLD = () => {
   return (
@@ -52,6 +54,9 @@ const HeroLD = () => {
           </div>
         </section>
         <HighightContet/>
+        <AirdropContent/>
+        <FindCreators/>
+        
       </div>
     </>
   );
