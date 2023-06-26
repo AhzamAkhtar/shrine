@@ -70,7 +70,7 @@ const Navbar = () => {
                   class="block  pl-3 pr-4 text-white  rounded md:bg-transparent md:p-0 font-bold tracking-tight text-lg"
                   aria-current="page"
                 >
-                  home
+                  find creators
                 </a>
               </li>
               <li>
@@ -78,7 +78,15 @@ const Navbar = () => {
                   href="#"
                   class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-lg"
                 >
-                  about
+                  my feed
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-lg"
+                >
+                  about us
                 </a>
               </li>
             </ul>
