@@ -11,13 +11,14 @@ const Hero = () => {
           height: "100vh",
         }}
       >
-        <Image
+        
+        {/* <Image
           src="/sun-tornadodnn.png"
           className="rounded"
           alt="Mountains with snow"
           layout="fill"
           objectFit="cover"
-        />
+        /> */}
       </div>
    
       
