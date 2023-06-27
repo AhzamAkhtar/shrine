@@ -6,6 +6,7 @@ import {
   CardFooter,
   Typography,
   Button,
+  Avatar,
 } from "@material-tailwind/react";
 const AirdropContent = () => {
   return (
@@ -21,104 +22,113 @@ const AirdropContent = () => {
         </div>
       </section>
 
-      <section class="text-gray-600 body-font mx-5 py-2">
-        <div class="container px-20 py-5 mx-auto ">
-          <div class="flex flex-wrap -m-5 px-24 py-1 sm:px-2  ">
-            <>
-              {/* <div class="xl:w-1/3 md:w-1/2 p-4">
-                <div class={`border border-gray-200 p-6 rounded-lg bg-white`}>
-                  <h2 class={`text-3xl text-white font-medium title-font mb-2`}>
-                    from
-                  </h2>
+      <div className="flex justify-center">
+        <section class="text-gray-600 body-font mx-20 py-2">
+          <div class=" px-20 py-5 mx-auto ">
+            <div class="flex flex-wrap -m-5 px-20 py-1 sm:px-2">
+              <>
+                <Card
+                  shadow={false}
+                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                >
+                  <CardHeader
+                    floated={false}
+                    shadow={false}
+                    color="transparent"
+                    className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('https://picsum.photos/200/300')] bg-cover bg-center"
+                  >
+                    <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                  </CardHeader>
+                  <CardBody className="relative py-14 px-6 md:px-12">
+                    <Typography
+                      variant="h2"
+                      color="white"
+                      className="mb-6 font-medium leading-[1.5]"
+                    >
+                      How we design and code open-source projects?
+                    </Typography>
+                    <Typography variant="h5" className="mb-4 text-gray-400">
+                      Candice Wu
+                    </Typography>
+                    <Avatar
+                      size="xl"
+                      variant="circular"
+                      alt="candice wu"
+                      className="border-2 border-white"
+                      src="https://picsum.photos/200/300"
+                    />
+                  </CardBody>
+                </Card>
+                <Card
+                  shadow={false}
+                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                >
+                  <CardHeader
+                    floated={false}
+                    shadow={false}
+                    color="transparent"
+                    className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('https://picsum.photos/200/301')] bg-cover bg-center"
+                  >
+                    <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                  </CardHeader>
+                  <CardBody className="relative py-14 px-6 md:px-12">
+                    <Typography
+                      variant="h2"
+                      color="white"
+                      className="mb-6 font-medium leading-[1.5]"
+                    >
+                      How we design and code open-source projects?
+                    </Typography>
+                    <Typography variant="h5" className="mb-4 text-gray-400">
+                      Candice Wu
+                    </Typography>
+                    <Avatar
+                      size="xl"
+                      variant="circular"
+                      alt="candice wu"
+                      className="border-2 border-white"
+                      src="https://picsum.photos/200/301"
+                    />
+                  </CardBody>
+                </Card>
 
-                  <p class="leading-relaxed text-xl mt-2">msg</p>
-                  <div className="flex justify-between">
-                    <p class="leading-relaxed text-base mt-2">from</p>
-                    <p class="leading-relaxed text-base mt-2">from</p>
-                  </div>
-                </div>
-              </div> */}
-
-              <a
-                href="#"
-                class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mx-4"
-              >
-                <img
-                  class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                  src="https://picsum.photos/200/301"
-                  alt=""
-                />
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Noteworthy technology acquisitions 2021
-                  </h5>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    Here are the biggest enterprise technology acquisitions of
-                    2021 so far, in reverse chronological order.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 "
-              >
-                <img
-                  class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                  src="https://picsum.photos/200/304"
-                  alt=""
-                />
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Noteworthy technology acquisitions 2021
-                  </h5>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    Here are the biggest enterprise technology acquisitions of
-                    2021 so far, in reverse chronological order.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mt-5 mx-4"
-              >
-                <img
-                  class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg mt-5"
-                  src="https://picsum.photos/200/306"
-                  alt=""
-                />
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Noteworthy technology acquisitions 2021
-                  </h5>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    Here are the biggest enterprise technology acquisitions of
-                    2021 so far, in reverse chronological order.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mt-5"
-              >
-                <img
-                  class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                  src="https://picsum.photos/200/309"
-                  alt=""
-                />
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Noteworthy technology acquisitions 2021
-                  </h5>
-                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    Here are the biggest enterprise technology acquisitions of
-                    2021 so far, in reverse chronological order.
-                  </p>
-                </div>
-              </a>
-            </>
+                <Card
+                  shadow={false}
+                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                >
+                  <CardHeader
+                    floated={false}
+                    shadow={false}
+                    color="transparent"
+                    className="absolute inset-0 m-0 h-full w-full rounded-none bg-[url('https://picsum.photos/200/302')] bg-cover bg-center"
+                  >
+                    <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                  </CardHeader>
+                  <CardBody className="relative py-14 px-6 md:px-12">
+                    <Typography
+                      variant="h2"
+                      color="white"
+                      className="mb-6 font-medium leading-[1.5]"
+                    >
+                      How we design and code open-source projects?
+                    </Typography>
+                    <Typography variant="h5" className="mb-4 text-gray-400">
+                      Candice Wu
+                    </Typography>
+                    <Avatar
+                      size="xl"
+                      variant="circular"
+                      alt="candice wu"
+                      className="border-2 border-white"
+                      src="https://picsum.photos/200/302"
+                    />
+                  </CardBody>
+                </Card>
+              </>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 mt-10">
         <a
           href="#"

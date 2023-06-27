@@ -58,9 +58,9 @@ const HeroLD = () => {
         <div>
         <UpperHero className="flex justify-center"/>
       </div>
+        <FindCreators/>
         <HighightContet/>
         <AirdropContent/>
-        <FindCreators/>
       </div>
       <Footer/>
     </>
