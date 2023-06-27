@@ -29,7 +29,7 @@ const AirdropContent = () => {
               <>
                 <Card
                   shadow={false}
-                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                  className="relative mx-5  grid h-[40rem] w-1/4 max-w-[28rem] items-end justify-center overflow-hidden text-center"
                 >
                   <CardHeader
                     floated={false}
@@ -61,7 +61,7 @@ const AirdropContent = () => {
                 </Card>
                 <Card
                   shadow={false}
-                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                  className="relative mx-5  grid h-[40rem] w-1/4 max-w-[28rem] items-end justify-center overflow-hidden text-center"
                 >
                   <CardHeader
                     floated={false}
@@ -94,7 +94,7 @@ const AirdropContent = () => {
 
                 <Card
                   shadow={false}
-                  className="relative mx-5  grid h-[40rem] w-2/3 max-w-[28rem] items-end justify-center overflow-hidden text-center"
+                  className="relative mx-5  grid h-[40rem] w-1/4 max-w-[28rem] items-end justify-center overflow-hidden text-center"
                 >
                   <CardHeader
                     floated={false}
@@ -124,6 +124,7 @@ const AirdropContent = () => {
                     />
                   </CardBody>
                 </Card>
+                
               </>
             </div>
           </div>
@@ -132,7 +133,7 @@ const AirdropContent = () => {
       <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 mt-10">
         <a
           href="#"
-          class="inline-flex justify-center items-center py-4 px-5 text-2xl font-medium text-center text-black rounded-full bg-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+          class="inline-flex justify-center items-center py-4 px-5 text-lg font-medium text-center text-black rounded-full bg-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
         >
           discover all
           <svg

@@ -1,14 +1,48 @@
-{
-  /*<h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world’s potential</h1>*/
-}
-import React from "react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  queryEqual,
+} from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 import HighightContet from "./HighightContent";
 import FindCreators from "./FindCreators";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import AirdropContent from "./AirdropContent";
 import Footer from "./Footer";
 import UpperHero from "./UpperHero";
+import db from "../../db/db";
 
 const HeroLD = () => {
+  const [wallet_connected, setWalletConnected] = useState(false);
+  const [userPublicKey, setUserPubicKey] = useState("");
+  const [donationPageHeading, setDonationPageHeading] = useState(
+    "get a donation page"
+  );
+  const { connected, publicKey } = useWallet();
+  useEffect(() => {
+    if (connected) {
+      setWalletConnected(true);
+      setUserPubicKey(publicKey.toString());
+    }
+  }, [connected, publicKey]);
+
+  useEffect(() => {
+    const check_weather_donationpage_exists = async () => {
+      const querySnapshot = await getDocs(collection(db, "cryptochat"));
+      querySnapshot.forEach((doc) => {
+        if (doc.data().address == userPublicKey) {
+          setDonationPageHeading("go to your donation page");
+        }
+        else {
+          setDonationPageHeading("get a donation page")
+        }
+      });
+    };
+    check_weather_donationpage_exists()
+  },[userPublicKey]);
+
   return (
     <>
       <div className="py-24 mt-10">
@@ -29,9 +63,9 @@ const HeroLD = () => {
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <a
                 href="#"
-                class="inline-flex justify-center items-center py-6 px-5 text-xl font-medium text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                class="inline-flex justify-center items-center py-6 px-5 text-lg font-medium text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
-               start a paid membership
+                start a paid membership
                 {/* <svg
                   aria-hidden="true"
                   class="ml-2 -mr-1 w-5 h-5"
@@ -48,21 +82,21 @@ const HeroLD = () => {
               </a>
               <a
                 href="#"
-                class="inline-flex justify-center items-center py-4 px-5 text-xl font-medium text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                class="inline-flex justify-center items-center py-4 px-5 text-lg font-medium text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
-                get a donation page
+                {donationPageHeading}
               </a>
             </div>
           </div>
         </section>
         <div>
-        <UpperHero className="flex justify-center"/>
+          <UpperHero className="flex justify-center" />
+        </div>
+        <FindCreators />
+        <HighightContet />
+        <AirdropContent />
       </div>
-        <FindCreators/>
-        <HighightContet/>
-        <AirdropContent/>
-      </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
