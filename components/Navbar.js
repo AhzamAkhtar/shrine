@@ -67,7 +67,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  class="block  pl-3 pr-4 text-white  rounded md:bg-transparent md:p-0 font-bold tracking-tight text-2xl"
+                  class="block  pl-3 pr-4 text-white  rounded md:bg-transparent md:p-0 font-bold tracking-tight text-lg"
                   aria-current="page"
                 >
                   find creators
@@ -76,7 +76,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-2xl"
+                  class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-lg"
                 >
                   my feed
                 </a>
@@ -84,7 +84,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-2xl"
+                  class="block  pl-3 pr-4 text-white rounded md:hover:bg-transparent md:p-0 font-bold tracking-tight text-lg"
                 >
                   about us
                 </a>
