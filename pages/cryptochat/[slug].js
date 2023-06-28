@@ -320,8 +320,8 @@ const PaymentModal = (props) => {
         </>
       ) : (
         <>
-          <div className="flex justify-center absolute w-full items-center py-5 mt-10 rounded-xl">
-            <div class="bg-black w-1/3 p-10 rounded-3xl">
+          <div className="flex justify-center absolute w-full items-center py-10 mt-10 rounded-xl">
+            <div class="bg-black border border-white  w-1/3 p-10 rounded-3xl">
               <label class="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
