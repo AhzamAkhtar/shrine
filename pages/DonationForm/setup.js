@@ -8,6 +8,7 @@ import {
   Boo,
   Chip,
 } from "@material-tailwind/react";
+import {BsFillClipboardFill} from 'react-icons/bs'
 import dynamic from "next/dynamic";
 import db from "../../db/db";
 import Navbar from "../../components/Navbar";
@@ -111,6 +112,10 @@ export default function Example() {
     }
   };
 
+  const copy_activationLink = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/cryptochat/${pageName}`)
+  }
+
   return (
     <>
       <Navbar />
@@ -118,14 +123,14 @@ export default function Example() {
         <>
           <div className="flex justify-center py-36">
             <Card color="transparent" shadow={false}>
-              <Typography variant="h1" color="white">
+              <Typography variant="h2" color="white">
                 publish your
               </Typography>
               <Typography
-                variant="h1"
-                className="font-semibold text-yellow-300"
+                variant="h2"
+                className="font-extrabold text-yellow-300"
               >
-                donation page
+                donation page now
               </Typography>
 
               <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
@@ -167,12 +172,15 @@ export default function Example() {
                         </>
                       )}
                     </div>
+                    <div className="flex justify-center">
                     <input
                       type="text"
                       id="default-input"
                       value={activationLink}
                       class="bg-black border border-white text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
+                    <BsFillClipboardFill onClick={()=> copy_activationLink()} className="text-3xl ml-2 mt-2 text-white cursor-pointer" />
+                    </div>
                   </div>
                 </div>
                 {walletConnected ? (
