@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
 import checkboxColors from "@material-tailwind/react/theme/components/checkbox/checkboxColors";
+import { FLIGHT_SERVER_CSS_MANIFEST } from "next/dist/shared/lib/constants";
 export default function Example() {
   const router = useRouter();
   const WalletMultiButtonDynamic = dynamic(
@@ -23,6 +24,7 @@ export default function Example() {
       (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
     { ssr: false }
   );
+  const [isExist, setIsExist] = useState(false);
   const [activation, setActivation] = useState(false);
   const [loading, setLoading] = useState(false);
   const { connected, publicKey } = useWallet();
@@ -36,11 +38,24 @@ export default function Example() {
     if (connected) {
       setWalletConnected(true);
       setWalletAddress(publicKey.toString());
+      setIsExist(false)
     } else {
       setWalletConnected(false);
       setWalletAddress("");
     }
   }, [connected, publicKey]);
+
+  useEffect(() => {
+    const check_for_existing_account = async () => {
+      const querySnapshot = await getDocs(collection(db, "cryptochat"));
+      querySnapshot.forEach((doc) => {
+        if (doc.data().address == walletAddress) {
+          setIsExist(true);
+        } 
+      });
+    };
+    check_for_existing_account();
+  }, [walletAddress]);
 
   const nameHandler = (e) => {
     setPageName(e.target.value);
@@ -52,17 +67,6 @@ export default function Example() {
 
   const socialsHandlers = (e) => {
     setSocials(e.target.value);
-  };
-
-  const check_for_existing_account = async () => {
-    const querySnapshot = await getDocs(collection(db, "cryptochat"));
-    querySnapshot.forEach((doc) => {
-      if (doc.data().address == walletAddress) {
-        return false;
-      } else {
-        return true;
-      }
-    });
   };
 
   const create_donation_page = async () => {
@@ -89,17 +93,9 @@ export default function Example() {
   };
 
   const activate_donation_page = async () => {
-    const querySnapshot = await getDocs(collection(db, "cryptochat"));
-    querySnapshot.forEach((doc) => {
-      if (doc.data().address == walletAddress) {
-        alert("fdfdfd");
-        return
-      } else {
-        setActivationLink(`http://localhost:3000/cryptochat/${pageName}
-        `);
-        setActivation(true);
-      }
-    });
+    setActivationLink(`http://localhost:3000/cryptochat/${pageName}
+           `);
+    setActivation(true);
   };
 
   return (
@@ -177,7 +173,7 @@ export default function Example() {
                         <button
                           onClick={() => create_donation_page()}
                           type="button"
-                          class="w-full text-white bg-black border border-white hover:bg-gray-900 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          class="w-full text-white bg-black border border-white hover:bg-gray-900 focus:ring-4 focus:ring-blue-300 font-semibold rounded-full px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
                           publish
                         </button>
@@ -272,13 +268,27 @@ export default function Example() {
                 </div>
                 {walletConnected ? (
                   <>
-                    <button
-                      onClick={() => activate_donation_page()}
-                      type="button"
-                      class="w-full border border-white text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                    >
-                      create your donation page
-                    </button>
+                    {isExist ? (
+                      <>
+                        <button
+                         disabled = {true}
+                          type="button"
+                          class="w-full border border-white text-white bg-gray-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3 focus:outline-none"
+                        >
+                          page already exists , try with another wallet
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => activate_donation_page()}
+                          type="button"
+                          class="w-full border border-white text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        >
+                          create your donation page
+                        </button>
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
