@@ -5,14 +5,17 @@ import {
   Button,
   Typography,
   collapse,
+  Boo,
 } from "@material-tailwind/react";
 import dynamic from "next/dynamic";
 import db from "../../db/db";
 import Navbar from "../../components/Navbar";
+import styles from "../../styles/Wallet.module.css";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
+import checkboxColors from "@material-tailwind/react/theme/components/checkbox/checkboxColors";
 export default function Example() {
   const router = useRouter();
   const WalletMultiButtonDynamic = dynamic(
@@ -33,6 +36,9 @@ export default function Example() {
     if (connected) {
       setWalletConnected(true);
       setWalletAddress(publicKey.toString());
+    } else {
+      setWalletConnected(false);
+      setWalletAddress("");
     }
   }, [connected, publicKey]);
 
@@ -46,6 +52,17 @@ export default function Example() {
 
   const socialsHandlers = (e) => {
     setSocials(e.target.value);
+  };
+
+  const check_for_existing_account = async () => {
+    const querySnapshot = await getDocs(collection(db, "cryptochat"));
+    querySnapshot.forEach((doc) => {
+      if (doc.data().address == walletAddress) {
+        return false;
+      } else {
+        return true;
+      }
+    });
   };
 
   const create_donation_page = async () => {
@@ -72,9 +89,17 @@ export default function Example() {
   };
 
   const activate_donation_page = async () => {
-    setActivationLink(`http://localhost:3000/cryptochat/${pageName}
-    `);
-    setActivation(true);
+    const querySnapshot = await getDocs(collection(db, "cryptochat"));
+    querySnapshot.forEach((doc) => {
+      if (doc.data().address == walletAddress) {
+        alert("fdfdfd");
+        return
+      } else {
+        setActivationLink(`http://localhost:3000/cryptochat/${pageName}
+        `);
+        setActivation(true);
+      }
+    });
   };
 
   return (
@@ -84,26 +109,29 @@ export default function Example() {
         <>
           <div className="flex justify-center py-36">
             <Card color="transparent" shadow={false}>
-              <Typography variant="h1" color="white">
-                page activation of your
+              <Typography variant="h2" color="white">
+                publish your
               </Typography>
-              <Typography variant="h1" color="blue">
+              <Typography
+                variant="h2"
+                className="font-semibold text-yellow-300"
+              >
                 donation page
               </Typography>
-              
+
               <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
                 <div className="mb-4 flex flex-col gap-6">
                   {/* <Input
-                  className="w-full"
-                    value={activationLink}
-                    size="lg"
-                    color="white"
-                    label="what should be your page name"
-                  /> */}
+                    className="w-full"
+                      value={activationLink}
+                      size="lg"
+                      color="white"
+                      label="what should be your page name"
+                    /> */}
                   <div class="mb-6">
                     <label
                       for="default-input"
-                      class="block font-semibold mb-2 text-lg  text-white dark:text-white"
+                      class="block font-semibold mb-2 text-white dark:text-white"
                     >
                       your page link
                     </label>
@@ -111,7 +139,7 @@ export default function Example() {
                       type="text"
                       id="default-input"
                       value={activationLink}
-                      class="bg-black border border-white text-white text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="bg-black border border-white text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                 </div>
@@ -122,7 +150,7 @@ export default function Example() {
                         <button
                           disabled
                           type="button"
-                          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                          class="w-full text-white bg-black border border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                         >
                           <svg
                             aria-hidden="true"
@@ -149,16 +177,16 @@ export default function Example() {
                         <button
                           onClick={() => create_donation_page()}
                           type="button"
-                          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          class="w-full text-white bg-black border border-white hover:bg-gray-900 focus:ring-4 focus:ring-blue-300 font-semibold rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
-                          let goo!!
+                          publish
                         </button>
                       </>
                     )}
                   </>
                 ) : (
                   <>
-                    <WalletMultiButtonDynamic />
+                    <WalletMultiButtonDynamic className={styles.walletbutton} />
                   </>
                 )}
 
@@ -185,54 +213,36 @@ export default function Example() {
               <Typography variant="h2" color="white">
                 get yourself a personalized
               </Typography>
-              <Typography variant="h2" color="blue">
+              <Typography
+                variant="h2"
+                className="font-extrabold text-yellow-300"
+              >
                 donation page
               </Typography>
-              <Typography color="white" className="mt-1 font-normal">
-                Enter your details to register.
-              </Typography>
-              <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+              {/* <Typography color="white" className="mt-1 font-normal">
+                  Enter your details to register.
+                </Typography> */}
+              <form className="mt-5 mb-2 w-80 max-w-screen-lg sm:w-96">
                 <div className="mb-4 flex flex-col gap-6">
-                  {/* <Input
-                    value={pageName}
-                    onChange={nameHandler}
-                    size="lg"
-                    color="white"
-                    label="what should be your page name"
-                  />
-                  <Input
-                    value={socials}
-                    onChange={socialsHandlers}
-                    size="lg"
-                    color="white"
-                    label="your socials"
-                  />
-                  <Input
-                    value={walletAddress}
-                    onChange={walletAddressHandler}
-                    color="white"
-                    size="lg"
-                    label="wallet address"
-                  /> */}
                   <div class="mb-1">
                     <label
                       for="default-input"
-                      class="block font-semibold mb-2 text-lg  text-white dark:text-white"
+                      class="block font-semibold mb-2 text-white dark:text-white"
                     >
-                     what should be your page name
+                      what should be your page name
                     </label>
                     <input
                       type="text"
-                      id="default-input"
+                      id="small-input"
                       value={pageName}
                       onChange={nameHandler}
-                      class="bg-black border border-white text-white text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                   <div class="mb-1">
                     <label
                       for="default-input"
-                      class="block font-semibold mb-2 text-lg  text-white dark:text-white"
+                      class="block font-semibold mb-2 text-white dark:text-white"
                     >
                       your socials
                     </label>
@@ -241,34 +251,33 @@ export default function Example() {
                       id="default-input"
                       value={socials}
                       onChange={socialsHandlers}
-                      class="bg-black border border-white text-white text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                   <div class="mb-1">
                     <label
                       for="default-input"
-                      class="block font-semibold mb-2 text-lg  text-white dark:text-white"
+                      class="block font-semibold mb-2 text-white dark:text-white"
                     >
-                     wallet address
+                      wallet address
                     </label>
                     <input
                       type="text"
                       id="default-input"
                       value={walletAddress}
                       onChange={walletAddressHandler}
-                      class="bg-black border border-white text-white text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
-                  
                 </div>
                 {walletConnected ? (
                   <>
                     <button
                       onClick={() => activate_donation_page()}
                       type="button"
-                      class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      class="w-full border border-white text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     >
-                      activate your donation page
+                      create your donation page
                     </button>
                   </>
                 ) : (

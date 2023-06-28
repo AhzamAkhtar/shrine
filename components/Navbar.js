@@ -4,7 +4,7 @@ import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 //import { useBuzz } from "../Connector/buzz";
 import { CiLogin } from "react-icons/ci";
 //import { NavbarUtil } from "../utils/NavbarUtil";
-import styles from "../styles/Wallet.module.css";
+import styles from "../styles/Wallet.module.css"
 import { useRouter } from "next/router";
 import Image from "next/image";
 const Navbar = () => {
