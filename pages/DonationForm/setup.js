@@ -6,6 +6,7 @@ import {
   Typography,
   collapse,
   Boo,
+  Chip,
 } from "@material-tailwind/react";
 import dynamic from "next/dynamic";
 import db from "../../db/db";
@@ -33,12 +34,14 @@ export default function Example() {
   const [walletAddress, setWalletAddress] = useState("");
   const [socials, setSocials] = useState("");
   const [activationLink, setActivationLink] = useState();
+  const [category, setCategory] = useState("");
+  const [publish_afterPublish, setPublish_afterPublish] = useState("publish");
 
   useEffect(() => {
     if (connected) {
       setWalletConnected(true);
       setWalletAddress(publicKey.toString());
-      setIsExist(false)
+      setIsExist(false);
     } else {
       setWalletConnected(false);
       setWalletAddress("");
@@ -51,7 +54,7 @@ export default function Example() {
       querySnapshot.forEach((doc) => {
         if (doc.data().address == walletAddress) {
           setIsExist(true);
-        } 
+        }
       });
     };
     check_for_existing_account();
@@ -76,26 +79,34 @@ export default function Example() {
         address: walletAddress,
         name: pageName,
         socials: socials,
+        category: category,
         profilePhoto:
           "https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/wba.jpg?alt=media&token=12de3c4c-32b1-4878-9696-da77d7c24faf",
       });
     } else {
       alert("pls fill the details");
     }
-    setTimeout(() => {
-      goToDonationPage();
-    }, 100);
+    setLoading(false);
+    setPublish_afterPublish("launch your donation page");
   };
 
   const goToDonationPage = () => {
     router.replace(`http://localhost:3000/cryptochat/${pageName}`);
-    setLoading(false);
   };
 
   const activate_donation_page = async () => {
     setActivationLink(`http://localhost:3000/cryptochat/${pageName}
            `);
     setActivation(true);
+  };
+
+  const handle_publish = () => {
+    if (publish_afterPublish == "publish") {
+      create_donation_page();
+    }
+    if (publish_afterPublish == "launch your donation page") {
+      goToDonationPage();
+    }
   };
 
   return (
@@ -146,7 +157,7 @@ export default function Example() {
                         <button
                           disabled
                           type="button"
-                          class="w-full text-white bg-black border border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                          class="w-full text-white bg-black border border-white focus:ring-4 focus:outline-none rounded-full text-sm font-semibold px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                         >
                           <svg
                             aria-hidden="true"
@@ -171,11 +182,11 @@ export default function Example() {
                     ) : (
                       <>
                         <button
-                          onClick={() => create_donation_page()}
+                          onClick={() => handle_publish()}
                           type="button"
-                          class="w-full text-white bg-black border border-white hover:bg-gray-900 focus:ring-4 focus:ring-blue-300 font-semibold rounded-full px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          class="w-full text-white bg-black border border-white font-semibold rounded-full px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
-                          publish
+                          {publish_afterPublish}
                         </button>
                       </>
                     )}
@@ -204,7 +215,7 @@ export default function Example() {
         </>
       ) : (
         <>
-          <div className="flex justify-center py-36">
+          <div className="flex justify-center py-24">
             <Card color="transparent" shadow={false}>
               <Typography variant="h2" color="white">
                 get yourself a personalized
@@ -232,7 +243,7 @@ export default function Example() {
                       id="small-input"
                       value={pageName}
                       onChange={nameHandler}
-                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                   </div>
                   <div class="mb-1">
@@ -246,9 +257,52 @@ export default function Example() {
                       type="text"
                       id="default-input"
                       value={socials}
+                      placeholder=" https://example.com"
                       onChange={socialsHandlers}
+                      class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+                  <div class="mb-1">
+                    <label
+                      for="default-input"
+                      class="block font-semibold mb-2 text-white dark:text-white"
+                    >
+                      your content category
+                    </label>
+                    <input
+                      type="text"
+                      id="default-input"
+                      value={category}
+                      //onChange={socialsHandlers}
                       class="block w-full p-2 text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
+                    <div className="flex gap-2 mt-5">
+                      <Chip
+                        onClick={() => setCategory(category + "video")}
+                        className="bg-white text-black"
+                        value="video"
+                      />
+                      <Chip
+                        onClick={() => setCategory(category + ", musician")}
+                        className="bg-white text-black"
+                        value="musician"
+                      />
+                      <Chip
+                        onClick={() => setCategory(category + ", developer")}
+                        className="bg-white text-black"
+                        value="developer"
+                      />
+                      <Chip
+                        onClick={() => setCategory(category + ", nft")}
+                        className="bg-white text-black"
+                        value="nft"
+                      />
+                      <Chip
+                        onClick={() => setCategory(category + ", podcast")}
+                        className="bg-white text-black"
+                        value="podcast"
+                      />
+                    </div>
                   </div>
                   <div class="mb-1">
                     <label
@@ -271,7 +325,7 @@ export default function Example() {
                     {isExist ? (
                       <>
                         <button
-                         disabled = {true}
+                          disabled={true}
                           type="button"
                           class="w-full border border-white text-white bg-gray-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3 focus:outline-none"
                         >
@@ -283,7 +337,7 @@ export default function Example() {
                         <button
                           onClick={() => activate_donation_page()}
                           type="button"
-                          class="w-full border border-white text-white bg-black hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-full  py-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                          class="w-full border border-white text-white bg-black font-medium rounded-full py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
                           create your donation page
                         </button>

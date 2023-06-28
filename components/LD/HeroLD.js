@@ -13,8 +13,9 @@ import AirdropContent from "./AirdropContent";
 import Footer from "./Footer";
 import UpperHero from "./UpperHero";
 import db from "../../db/db";
-
+import { useRouter } from "next/router";
 const HeroLD = () => {
+  const router = useRouter();
   const [wallet_connected, setWalletConnected] = useState(false);
   const [userPublicKey, setUserPubicKey] = useState("");
   const [donationPageHeading, setDonationPageHeading] = useState(
@@ -35,13 +36,10 @@ const HeroLD = () => {
         if (doc.data().address == userPublicKey) {
           setDonationPageHeading("go to your donation page");
         }
-        else {
-          setDonationPageHeading("get a donation page")
-        }
       });
     };
-    check_weather_donationpage_exists()
-  },[userPublicKey]);
+    check_weather_donationpage_exists();
+  }, [userPublicKey]);
 
   return (
     <>
@@ -63,7 +61,7 @@ const HeroLD = () => {
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <a
                 href="#"
-                class="inline-flex justify-center items-center py-6 px-5 text-lg font-medium text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                class="inline-flex justify-center items-center py-3 text-lg px-5 font-semibold text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
                 start a paid membership
                 {/* <svg
@@ -81,8 +79,11 @@ const HeroLD = () => {
                 </svg> */}
               </a>
               <a
+                onClick={() =>
+                  router.push("http://localhost:3000/DonationForm/setup")
+                }
                 href="#"
-                class="inline-flex justify-center items-center py-4 px-5 text-lg font-medium text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                class="inline-flex justify-center items-center py-3 px-5 text-lg font-semibold text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
                 {donationPageHeading}
               </a>
