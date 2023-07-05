@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 import HighightContet from "./HighightContent";
 import FindCreators from "./FindCreators";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useLocalStorage, useWallet } from "@solana/wallet-adapter-react";
 import AirdropContent from "./AirdropContent";
 import Footer from "./Footer";
 import UpperHero from "./UpperHero";
@@ -18,6 +18,7 @@ const HeroLD = () => {
   const router = useRouter();
   const [wallet_connected, setWalletConnected] = useState(false);
   const [userPublicKey, setUserPubicKey] = useState("");
+  const [donationPageName , setDonationPageName] = useState("")
   const [donationPageHeading, setDonationPageHeading] = useState(
     "get a donation page"
   );
@@ -35,11 +36,21 @@ const HeroLD = () => {
       querySnapshot.forEach((doc) => {
         if (doc.data().address == userPublicKey) {
           setDonationPageHeading("go to your donation page");
+          setDonationPageName(doc.data().name)
         }
       });
     };
     check_weather_donationpage_exists();
   }, [userPublicKey]);
+
+  const handleProceeding = () => {
+    if(donationPageHeading== "get a donation page") {
+      router.push("http://localhost:3000/DonationForm/setup")
+    }
+    if(donationPageHeading == "go to your donation page") {
+      router.push(`http://localhost:3000/donationPage/${donationPageName}`)
+    }
+  }
 
   return (
     <>
@@ -80,7 +91,7 @@ const HeroLD = () => {
               </a>
               <a
                 onClick={() =>
-                  router.push("http://localhost:3000/DonationForm/setup")
+                  handleProceeding()
                 }
                 href="#"
                 class="inline-flex justify-center items-center py-3 px-5 text-lg font-semibold text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
