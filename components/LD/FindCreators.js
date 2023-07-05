@@ -20,8 +20,8 @@ const FindCreators = () => {
     const creatorsArray = []
     const querySnapshot = await getDocs(collection(db , "creators"))
     querySnapshot.forEach((doc)=> {
-      if(doc.data().name[0,3] == search[0,3]) {
-        creatorsArray.push(doc.data().name)
+      if(doc.data().name[0,1] == search[0,1]) {
+        creatorsArray.push(doc.data())
       }
     })
     setSearchOutput(creatorsArray)
@@ -29,6 +29,34 @@ const FindCreators = () => {
     setShowDefaultList(false)
     console.log(search)
     console.log(searchOutput)
+  }
+
+  const getCreatorsByArtist = async () => {
+    setLoading(true)
+    const creatorsArray = []
+    const querySnapshot = await getDocs(collection(db , "creators"))
+    querySnapshot.forEach((doc)=> {
+      if(doc.data().category == "nft"){
+        creatorsArray.push(doc.data())
+      }
+    })
+    setSearchOutput(creatorsArray)
+    setLoading(false)
+    setShowDefaultList(false)
+  }
+
+  const getCreatorsByVedio = async () => {
+    setLoading(true)
+    const creatorsArray = []
+    const querySnapshot = await getDocs(collection(db , "creators"))
+    querySnapshot.forEach((doc)=> {
+      if(doc.data().category == "video"){
+        creatorsArray.push(doc.data())
+      }
+    })
+    setSearchOutput(creatorsArray)
+    setLoading(false)
+    setShowDefaultList(false)
   }
   
 
@@ -85,19 +113,19 @@ const FindCreators = () => {
       </div>
 
       <div className="flex justify-center mt-10">
-        <span class="bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+        <span class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           music
         </span>
-        <span class="bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+        <span onClick={()=> getCreatorsByVedio()} class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           videos
         </span>
-        <span class="bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+        <span class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           blogs
         </span>
-        <span class="bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+        <span onClick={()=> getCreatorsByArtist()} class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           artist
         </span>
-        <span class="bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+        <span class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           podcast
         </span>
       </div>

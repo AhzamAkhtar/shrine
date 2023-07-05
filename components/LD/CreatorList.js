@@ -62,11 +62,11 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                         <>
                           <ListItem>
                             <ListItemPrefix>
-                              <Avatar variant="circular" alt="candice" src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80" />
+                              <Avatar variant="circular" alt="candice" src={item.image} />
                             </ListItemPrefix>
                             <div>
                               <Typography variant="h6" color="blue-gray">
-                                {CreatorList[0]}
+                               {item.name}
                               </Typography>
                               <Typography variant="small" color="gray" className="font-normal">
                                 Software Engineer @ Material Tailwind
