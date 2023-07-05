@@ -38,6 +38,11 @@ const DonationPage = (props) => {
     }
   }, [connected]);
 
+
+  const copy_activationLink = () => {
+    navigator.clipboard.writeText(`http://localhost:3000/cryptochat/${user}`)
+  }
+
   return (
     <>
       <Navbar />
@@ -151,16 +156,16 @@ const DonationPage = (props) => {
 
       <>
         <div className='flex justify-center'>
-        <Card color="transparent" shadow={false}>
-          <Typography variant="h2" color="white">
-          share your link
-          </Typography>
-          <Typography className="text-yellow-300 mb-10" variant="h2">
-           with your audience
-          </Typography>
+          <Card color="transparent" shadow={false}>
+            <Typography variant="h2" color="white">
+              share your link
+            </Typography>
+            <Typography className="text-yellow-300 mb-10" variant="h2">
+              with your audience
+            </Typography>
           </Card>
         </div>
-          <Share user={user} />
+        <Share user={user} />
       </>
     </>
 
