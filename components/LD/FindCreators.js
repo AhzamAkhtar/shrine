@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreatorList from "./CreatorList";
+import { collection, getDocs } from "firebase/firestore"
+import db from "../../db/db";
 const FindCreators = () => {
+
+  const [search , setSearch] = useState("")
+  const [searchOutput , setSearchOutput] = useState([])
+  const [loading , setLoading] = useState(false)
+  const [showDefaultList , setShowDefaultList] = useState(true)
+
+  const seachHandler = (e) => {
+    setSearch(e.target.value)
+    console.log(search)
+  }
+
+
+  const getCreatorsList = async () => {
+    setLoading(true)
+    const creatorsArray = []
+    const querySnapshot = await getDocs(collection(db , "creators"))
+    querySnapshot.forEach((doc)=> {
+      if(doc.data().name[0,3] == search[0,3]) {
+        creatorsArray.push(doc.data().name)
+      }
+    })
+    setSearchOutput(creatorsArray)
+    setLoading(false)
+    setShowDefaultList(false)
+    console.log(search)
+    console.log(searchOutput)
+  }
+  
+
   return (
     <>
       <div className="flex justify-center mt-10">
@@ -9,7 +40,7 @@ const FindCreators = () => {
         </h1>
       </div>
       <div className="flex justify-center mt-10">
-        <form className="w-1/3">
+        <div className="w-1/3">
           <label
             for="search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -37,18 +68,20 @@ const FindCreators = () => {
             <input
               type="search"
               id="search"
+              onChange={seachHandler}
+              value={search}
               class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
               required
             />
             <button
-              type="submit"
+              onClick={()=>getCreatorsList()}
               class="text-white absolute right-2.5 bottom-2.5 bg-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Search
             </button>
           </div>
-        </form>
+        </div>
       </div>
 
       <div className="flex justify-center mt-10">
@@ -68,7 +101,7 @@ const FindCreators = () => {
           podcast
         </span>
       </div>
-      <CreatorList/>
+      <CreatorList CreatorList={searchOutput} loading={loading} showDefaultList={showDefaultList}/>
     </>
   );
 };

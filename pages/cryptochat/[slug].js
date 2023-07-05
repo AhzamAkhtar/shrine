@@ -140,7 +140,7 @@ const PaymentModal = (props) => {
     console.log(TuserPubkey);
     if (TuserPubkey.includes(userPubkey)) {
       console.log("user exist");
-      increasePoints();
+      //increasePoints();
     } else {
       addUserForCrytoChat();
     }
@@ -153,19 +153,19 @@ const PaymentModal = (props) => {
     });
   };
 
-  const increasePoints = async () => {
-    const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
-    querySnapshot.forEach((doc) => {
-      if (doc.data().user == userPubkey) {
-        setDocIdForUpdatingPoint(doc.id);
-      }
-    });
-    const Tdocumnet = doc(db, "users_cryptochat", docIdForUpdatingPoint);
-    const updatedPoints = points + 10;
-    await updateDoc(Tdocumnet, {
-      points: updatedPoints,
-    });
-  };
+  // const increasePoints = async () => {
+  //   const querySnapshot = await getDocs(collection(db, "users_cryptochat"));
+  //   querySnapshot.forEach((doc) => {
+  //     if (doc.data().user == userPubkey) {
+  //       setDocIdForUpdatingPoint(doc.id);
+  //     }
+  //   });
+  //   const Tdocumnet = doc(db, "users_cryptochat", docIdForUpdatingPoint);
+  //   const updatedPoints = points + 10;
+  //   await updateDoc(Tdocumnet, {
+  //     points: updatedPoints,
+  //   });
+  // };
 
   const pay = async (receiver) => {
     await doTransaction({
