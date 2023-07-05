@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Share = ({user}) => {
+const Share = ({ user }) => {
     const copy_activationLink = () => {
         navigator.clipboard.writeText(`http://localhost:3000/cryptochat/${user}`)
-      }
+    }
     return (
         <>
 
@@ -130,7 +130,7 @@ const Share = ({user}) => {
 
                             <input class="w-full bg-transparent" type="text" placeholder="link" value={`http://localhost:3000/cryptochat/${user}`} />
 
-                            <button onClick={()=> copy_activationLink()} class="bg-black text-white rounded text-sm py-2 px-6 mr-3">
+                            <button onClick={() => copy_activationLink()} class="bg-black text-white rounded text-sm py-2 px-6 mr-3">
                                 Copy
                             </button>
                         </div>

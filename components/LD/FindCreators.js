@@ -7,7 +7,21 @@ const FindCreators = () => {
   const [search , setSearch] = useState("")
   const [searchOutput , setSearchOutput] = useState([])
   const [loading , setLoading] = useState(false)
-  const [showDefaultList , setShowDefaultList] = useState(true)
+
+  const getAllCreators = async () => {
+    setLoading(true)
+    const creatorsArray = []
+    const querySnapshot = await getDocs(collection(db , "creators"))
+    querySnapshot.forEach((doc)=> {
+      creatorsArray.push(doc.data())
+    })
+    setSearchOutput(creatorsArray)
+    setLoading(false)
+  }
+
+  useEffect(()=> {
+    getAllCreators()
+  },[])
 
   const seachHandler = (e) => {
     setSearch(e.target.value)
@@ -26,10 +40,11 @@ const FindCreators = () => {
     })
     setSearchOutput(creatorsArray)
     setLoading(false)
-    setShowDefaultList(false)
-    console.log(search)
-    console.log(searchOutput)
+   // console.log(search)
+   // console.log(searchOutput)
   }
+
+ 
 
   const getCreatorsByArtist = async () => {
     setLoading(true)
@@ -42,7 +57,6 @@ const FindCreators = () => {
     })
     setSearchOutput(creatorsArray)
     setLoading(false)
-    setShowDefaultList(false)
   }
 
   const getCreatorsByVedio = async () => {
@@ -56,7 +70,6 @@ const FindCreators = () => {
     })
     setSearchOutput(creatorsArray)
     setLoading(false)
-    setShowDefaultList(false)
   }
   
 
@@ -128,8 +141,11 @@ const FindCreators = () => {
         <span class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
           podcast
         </span>
+        <span onClick={()=> getAllCreators()} class="cursor-pointer bg-white text-black text-lg font-medium mr-2 px-2.5 py-0.5 rounded-xl ">
+          all
+        </span>
       </div>
-      <CreatorList CreatorList={searchOutput} loading={loading} showDefaultList={showDefaultList}/>
+      <CreatorList CreatorList={searchOutput} loading={loading}/>
     </>
   );
 };

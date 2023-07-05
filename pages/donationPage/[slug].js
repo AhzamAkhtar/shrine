@@ -49,7 +49,7 @@ const DonationPage = (props) => {
       <div className="flex justify-center py-36">
         <Card color="transparent" shadow={false}>
           <Typography variant="h2" color="white">
-            welcome back
+            welcome back,
           </Typography>
           <Typography
             variant="h2"
@@ -123,7 +123,7 @@ const DonationPage = (props) => {
                 ) : (
                   <>
                     <button
-
+                    onClick={()=> router.push(activationLink)}
                       type="button"
                       class="w-full text-white bg-black border border-white font-semibold rounded-full px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     >
