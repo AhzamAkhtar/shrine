@@ -53,7 +53,7 @@ const PaymentModal = (props) => {
   const [docIdForUpdatingPoint, setDocIdForUpdatingPoint] = useState();
   const [customAmount, setCustomAmount] = useState(false);
   const [usdcPay, setUsdcPay] = useState(true);
-  const [date , setDate] = useState()
+  const [date, setDate] = useState()
 
   const getDate = (seconds) => {
     var milliseconds = seconds * 1000; // Convert seconds to milliseconds
@@ -62,7 +62,7 @@ const PaymentModal = (props) => {
     var year = new Date(milliseconds).getFullYear().toString()
     var date = day + - +month + - + year
     console.log(date)
-    return(date)
+    return (date)
   };
 
   getDate(1687319226)
@@ -249,71 +249,69 @@ const PaymentModal = (props) => {
                 </span>
               </label>
             </div>
-            <div class="container px-20 py-5 mx-auto ">
-              <div class="flex flex-wrap -m-5 px-24 py-1 sm:px-2 ">
-                {messageData.map((item, keys) => {
-                  return (
+            <div className="container px-20 py-5 mx-auto ">
+              <div class="flex justify-center mt-5 flex-wrap -m-5 px-24 py-1 sm:px-2 ">
+
+               
+                <>
+                  {loading ? (
                     <>
-                      {loading ? (
-                        <>
-                          <Image
-                            src="/yellowLoader.gif"
-                            width={50}
-                            height={50}
-                            className="m-auto"
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <div class="xl:w-1/3 md:w-1/2 p-4">
-                            <div
-                              class={`border border-gray-200 p-6 rounded-lg bg-white`}
-                            >
-                              {/* <h2
-                                class={`text-lg text-${item.msgColor} font-medium title-font mb-2`}
-                              >
-                                amount
-                              </h2> */}
-                              {/* <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4">
-                                <svg
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  class="w-6 h-6"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                                </svg>
-                              </div> */}
-                              <h2
-                                class={`text-3xl text-${item.msgColor} font-medium title-font mb-2`}
-                              >
-                                ${item.amount}
-                              </h2>
-                              {/* <h2 class="leading-relaxed text-base">
-                                message :
-                              </h2> */}
-                              <p class="leading-relaxed text-xl mt-2">
-                                {item.message}
-                              </p>
-                              <div className="flex justify-between">
-                               
-                                <p class="leading-relaxed text-base mt-2">
-                                  from : {truncate(item.from)}
-                                </p>
-                                <p class="leading-relaxed text-base mt-2">
-                                  {getDate(item.serverTimestamp.seconds)}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      )}
+                      <Image
+                        src="/yellowLoader.gif"
+                        width={50}
+                        height={50}
+                        className="m-auto"
+                      />
                     </>
-                  );
-                })}
+                  ) : (
+                    <>
+
+                      <div class="mt-2 w-full max-w-md p-10 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">latest donators</h5>
+                          <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                            View all
+                          </a>
+                        </div>
+                        <div class="flow-root">
+                          <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            {messageData.map((item) => {
+                              return (
+                                <>
+                                  <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                      <div class="flex-shrink-0">
+                                        <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" alt="Neil image" />
+                                      </div>
+                                      <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                          {item.message}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        from : {truncate(item.from)}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        {getDate(item.serverTimestamp.seconds)}
+                                        </p>
+                                      </div>
+                                      <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        ${item.amount}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </>
+                              )
+                            })}
+
+                          </ul>
+                        </div>
+                      </div>
+
+                    </>
+                  )}
+                </>
+                );
+
               </div>
             </div>
           </section>
