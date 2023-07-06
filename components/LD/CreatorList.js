@@ -51,6 +51,9 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                             <Typography variant="h6" color="blue-gray">
                               {item.name}
                             </Typography>
+                            <Typography variant="h6" color="blue-gray">
+                              @{item.name}
+                            </Typography>
                             <Typography variant="small" color="gray" className="font-normal">
                              {item.description}
                             </Typography>
