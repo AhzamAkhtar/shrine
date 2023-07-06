@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/router";
 export default function CreatorList({ CreatorList, loading, showDefaultList }) {
-
+  const router = useRouter() 
   return (
     <>
       <div className="flex justify-center mt-10">
@@ -43,7 +43,7 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                   {CreatorList.map((item) => {
                     return (
                       <>
-                        <ListItem>
+                        <ListItem onClick={()=> router.push(`http://localhost:3000/creatorPage/${item.name}`)}>
                           <ListItemPrefix>
                             <Avatar variant="circular" alt="candice" src={item.image} />
                           </ListItemPrefix>

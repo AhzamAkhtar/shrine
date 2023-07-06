@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar'
 import { collection, getDocs } from 'firebase/firestore'
 import db from '../../db/db'
 const creatorPage = (props) => {
+    const creator = props.slug
     const starterArray = []
     const standardArray = []
     const premiumArray = []
@@ -20,7 +21,7 @@ const creatorPage = (props) => {
         const getDes = async() => {
             const querySnapshot = await getDocs(collection(db , "creators"))
             querySnapshot.forEach((doc)=>{
-                if(doc.data().name == "Web3BuildersAllience"){
+                if(doc.data().name == creator){
                     setCreatorDesc(doc.data().description)
                 }
             })
@@ -28,7 +29,7 @@ const creatorPage = (props) => {
         const getStarterPriceArray = async () => {
             const querySnapshot = await getDocs(collection(db, "creators"))
             querySnapshot.forEach((doc) => {
-                if (doc.data().name == "Web3BuildersAllience") {
+                if (doc.data().name == creator) {
 
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
@@ -46,7 +47,7 @@ const creatorPage = (props) => {
         const getStandardPriceArray = async () => {
             const querySnapshot = await getDocs(collection(db, "creators"))
             querySnapshot.forEach((doc) => {
-                if (doc.data().name == "Web3BuildersAllience") {
+                if (doc.data().name == creator) {
 
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
@@ -85,7 +86,7 @@ const creatorPage = (props) => {
         getPremiumPriceArray()
         getDes()
     }, [])
-    const creator = props.slug
+    
     return (
         <>
             <div className='w-full h-1/2
