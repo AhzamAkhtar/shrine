@@ -16,6 +16,7 @@ const creatorPage = (props) => {
     const [premiumPrice, setpremiumPrice] = useState("")
     const [premiumDesc, setpremiumDesc] = useState("")
     const [creatorDesc , setCreatorDesc] = useState("")
+    const [image , setImage] = useState("")
     useEffect(() => {
 
         const getDes = async() => {
@@ -23,6 +24,7 @@ const creatorPage = (props) => {
             querySnapshot.forEach((doc)=>{
                 if(doc.data().name == creator){
                     setCreatorDesc(doc.data().description)
+                    setImage(doc.data().image)
                 }
             })
         }
@@ -65,7 +67,7 @@ const creatorPage = (props) => {
         const getPremiumPriceArray = async () => {
             const querySnapshot = await getDocs(collection(db, "creators"))
             querySnapshot.forEach((doc) => {
-                if (doc.data().name == "Web3BuildersAllience") {
+                if (doc.data().name == creator) {
 
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
@@ -93,7 +95,7 @@ const creatorPage = (props) => {
              bg-white flex justify-center py-10'>
                 <img
                     className='flex justify-center'
-                    src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/wba.jpg?alt=media&token=12de3c4c-32b1-4878-9696-da77d7c24faf" alt='' />
+                    src= {image} alt='' />
             </div>
 
             <div className='flex justify-center py-10'>
@@ -120,7 +122,7 @@ const creatorPage = (props) => {
                         </div>
                     </div>
                     <div class="flex flex-col items-center pb-10">
-                        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/wba.jpg?alt=media&token=12de3c4c-32b1-4878-9696-da77d7c24faf" alt="Bonnie image" />
+                        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src={image} alt="Bonnie image" />
                         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{creator}</h5>
                         <span class="text-sm text-gray-500 dark:text-gray-400">{creatorDesc}</span>
                         <div class="flex mt-4 space-x-3 md:mt-6">

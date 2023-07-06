@@ -52,7 +52,7 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                               {item.name}
                             </Typography>
                             <Typography variant="small" color="gray" className="font-normal">
-                              Software Engineer @ Material Tailwind
+                             {item.description}
                             </Typography>
                           </div>
                         </ListItem>
