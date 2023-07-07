@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-
+import { AiTwotoneLock } from 'react-icons/ai'
 import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 import db from '../../db/db'
 import Content from '../../components/content'
@@ -19,6 +19,7 @@ const creatorPage = (props) => {
     const [premiumDesc, setpremiumDesc] = useState("")
     const [creatorDesc, setCreatorDesc] = useState("")
     const [content, setContent] = useState([])
+    const [showContent, setShowContent] = useState(false)
     const [image, setImage] = useState("")
     useEffect(() => {
 
@@ -92,35 +93,24 @@ const creatorPage = (props) => {
         getDes()
     }, [])
 
-    // useEffect(() => {
-    //     const array = []
-    //     const getContent = async () => {
 
-    //         const q = query(collection(db, "content"));
-
-    //         const querySnapshot = await getDocs(q);
-    //         querySnapshot.forEach((doc) => {
-    //             // doc.data() is never undefined for query doc snapshots
-    //             console.log(doc.id, " => ", doc.data());
-    //             content_arr.push({ ...doc.data(), key: doc.id });
-
-    //         });
-    //         content_arr = JSON.parse(JSON.stringify(array))
-
-    //         //setContent(JSON.parse(JSON.stringify))
-    //         console.log(content)
-    //     }
-    //     getContent()
-    // }, [])
     useEffect(() => {
         const fetch = async () => {
             const colRef = collection(db, "content")
             const snapshot = await getDocs(colRef)
 
             const docs = snapshot.docs.map((doc) => {
-                const data = doc.data()
-                data.id = doc.id
-                return data
+                if (doc.data().name == creator) {
+                    setShowContent(true)
+                    const data = doc.data()
+                    data.id = doc.id
+                    return data
+
+                }
+                else {
+                    setShowContent(false)
+                }
+
             })
             setContent(docs)
             console.log(docs)
@@ -190,7 +180,7 @@ const creatorPage = (props) => {
                             {starterDesc}
                         </p>
                     </div>
-                    <button type="button" class=" mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
+                    <button type="button" class=" mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">buy now</button>
                 </div>
                 <div class="mr-10 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Standard plan</h5>
@@ -204,7 +194,7 @@ const creatorPage = (props) => {
                             {standardDesc}
                         </p>
                     </div>
-                    <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
+                    <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">buy now</button>
                 </div>
 
                 <div class="mr-10 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -219,7 +209,7 @@ const creatorPage = (props) => {
                             {premiumDesc}
                         </p>
                     </div>
-                    <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
+                    <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">buy now</button>
                 </div>
 
 
@@ -230,34 +220,52 @@ const creatorPage = (props) => {
 
             </div>
 
-            
-                {content.map((item) => {
-                    return (
-                        <>
-                        <div className='flex justify-center mt-10'>
-                            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                <a href="#">
-                                    <img class="rounded-t-lg" src={item.image} alt="" />
-                                </a>
-                                <div class="p-5">
-                                    <a href="#">
-                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.title}</h5>
-                                    </a>
-                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.desc}.</p>
-                                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        Read more
-                                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                        </svg>
-                                    </a>
+            {showContent ? (
+                <>
+                    {content.map((item) => {
+                        return (
+                            <>
+                                <div className='flex justify-center mt-10 mb-10'>
+                                    <div class="max-w-sm bg-black border-4 border-gray-500 rounded-md shadow dark:bg-gray-800 dark:border-gray-700">
+                                        <body class="p-10">
+                                            <div class="relative">
+                                                <img src={item.image} className='blur-lg' />
+                                                <div className='flex'>
+                                                    <p class="absolute text-xl text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                                        unlock first </p>
+                                                    <AiTwotoneLock className='absolute text-xl text-white top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2' />
+                                                </div>
+                                            </div>
+                                        </body>
+                                        <div class="p-5">
+                                            <a href="#">
+                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{item.title}</h5>
+                                            </a>
+                                            <p class="mb-3 font-normal text-white dark:text-gray-400">{item.desc}.</p>
+                                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                Read more
+                                                <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            </div>
-                        </>
-                    )
-                })}
+                            </>
+                        )
+                    })}
+                </>
+            ) : (
+                <>
+                    <div className='flex justify-center'>
+                        <img src='../newcon.jpg' alt='image' />
+                    </div>
 
-           
+                </>
+            )}
+
+
+
 
 
 
