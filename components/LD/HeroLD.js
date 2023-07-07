@@ -14,6 +14,8 @@ import Footer from "./Footer";
 import UpperHero from "./UpperHero";
 import db from "../../db/db";
 import { useRouter } from "next/router";
+import JoinUs from "../JoinUs";
+import MockUp from "../MockUp";
 const HeroLD = () => {
   const router = useRouter();
   const [wallet_connected, setWalletConnected] = useState(false);
@@ -54,6 +56,9 @@ const HeroLD = () => {
 
   return (
     <>
+     <div>
+          <UpperHero className="flex justify-center" />
+        </div>
       <div className="py-24 mt-10">
         <section class="bg-black dark:bg-gray-900">
           <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
@@ -101,12 +106,13 @@ const HeroLD = () => {
             </div>
           </div>
         </section>
-        <div>
-          <UpperHero className="flex justify-center" />
-        </div>
+       
+        <MockUp/>
         <FindCreators />
+        
+        <JoinUs/>
         <HighightContet />
-        <AirdropContent />
+        {/* <AirdropContent /> */}
       </div>
       <Footer />
     </>

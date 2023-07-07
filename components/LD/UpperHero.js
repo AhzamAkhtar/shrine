@@ -13,9 +13,7 @@ const UpperHero = () => {
         <div>
             <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/301" alt=""/>
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/302" alt=""/>
-        </div>
+        
     </div>
     <div class="grid gap-4">
         <div>
@@ -24,9 +22,7 @@ const UpperHero = () => {
         <div>
             <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/304" alt=""/>
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/305" alt=""/>
-        </div>
+        
     </div>
     <div class="grid gap-4">
         <div>
@@ -35,9 +31,7 @@ const UpperHero = () => {
         <div>
             <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/307" alt=""/>
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/308" alt=""/>
-        </div>
+        
     </div>
     <div class="grid gap-4">
         <div>
@@ -46,9 +40,7 @@ const UpperHero = () => {
         <div>
             <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/310" alt=""/>
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://picsum.photos/300/311" alt=""/>
-        </div>
+        
     </div>
 </div>
 
