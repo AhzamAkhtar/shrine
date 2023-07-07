@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Navbar from '../../components/Navbar'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDoc, getDocs , query } from 'firebase/firestore'
 import db from '../../db/db'
+
 const creatorPage = (props) => {
+    let content_arr = []
     const creator = props.slug
     const starterArray = []
     const standardArray = []
@@ -15,14 +17,15 @@ const creatorPage = (props) => {
     const [standardDesc, setstandardDesc] = useState("")
     const [premiumPrice, setpremiumPrice] = useState("")
     const [premiumDesc, setpremiumDesc] = useState("")
-    const [creatorDesc , setCreatorDesc] = useState("")
-    const [image , setImage] = useState("")
+    const [creatorDesc, setCreatorDesc] = useState("")
+    const [content, setContent] = useState([])
+    const [image, setImage] = useState("")
     useEffect(() => {
 
-        const getDes = async() => {
-            const querySnapshot = await getDocs(collection(db , "creators"))
-            querySnapshot.forEach((doc)=>{
-                if(doc.data().name == creator){
+        const getDes = async () => {
+            const querySnapshot = await getDocs(collection(db, "creators"))
+            querySnapshot.forEach((doc) => {
+                if (doc.data().name == creator) {
                     setCreatorDesc(doc.data().description)
                     setImage(doc.data().image)
                 }
@@ -36,7 +39,7 @@ const creatorPage = (props) => {
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
                         starterArray.push(doc.data().starter[i])
-                        console.log("passes")
+                        //console.log("passes")
                     }
 
                 }
@@ -54,7 +57,7 @@ const creatorPage = (props) => {
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
                         standardArray.push(doc.data().standard[i])
-                        console.log("passes")
+                        //console.log("passes")
                     }
 
                 }
@@ -72,7 +75,7 @@ const creatorPage = (props) => {
                     for (let i = 0; i < 2; i++) {
                         //console.log(doc.data().starter.length())
                         premiumArray.push(doc.data().premium[i])
-                        console.log("passes")
+                        //console.log("passes")
                     }
 
                 }
@@ -88,14 +91,32 @@ const creatorPage = (props) => {
         getPremiumPriceArray()
         getDes()
     }, [])
-    
+
+    useEffect(() => {
+        const array = []
+        const getContent = async () => {
+
+            const q = query(collection(db, "content"));
+
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                array.push({ ...doc.data(), key: doc.id });
+            });
+            content_arr = JSON.parse(JSON.stringify(array))
+            console.log(content_arr)
+        }
+        getContent()
+    }, [])
+
     return (
         <>
             <div className='w-full h-1/2
              bg-white flex justify-center py-10'>
                 <img
                     className='flex justify-center'
-                    src= {image} alt='' />
+                    src={image} alt='' />
             </div>
 
             <div className='flex justify-center py-10'>
@@ -147,9 +168,9 @@ const creatorPage = (props) => {
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>
-                    <p className='text-black'>
-                    {starterDesc}
-                    </p>
+                        <p className='text-black'>
+                            {starterDesc}
+                        </p>
                     </div>
                     <button type="button" class=" mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
                 </div>
@@ -161,9 +182,9 @@ const creatorPage = (props) => {
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>
-                    <p className='text-black'>
-                    {standardDesc}
-                    </p>
+                        <p className='text-black'>
+                            {standardDesc}
+                        </p>
                     </div>
                     <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
                 </div>
@@ -176,9 +197,9 @@ const creatorPage = (props) => {
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>
-                    <p className='text-black'>
-                    {premiumDesc}
-                    </p>
+                        <p className='text-black'>
+                            {premiumDesc}
+                        </p>
                     </div>
                     <button type="button" class="mt-5 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
                 </div>
