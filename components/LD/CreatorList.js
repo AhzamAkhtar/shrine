@@ -12,7 +12,7 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
   const router = useRouter() 
   return (
     <>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 mb-10">
         <Card className="w-1/3">
           <List>
             <>

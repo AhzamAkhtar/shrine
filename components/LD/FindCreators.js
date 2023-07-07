@@ -75,6 +75,8 @@ const FindCreators = () => {
 
   return (
     <>
+      
+      <div className="ml-5 mr-5 border-4 border-white rounded-3xl">
       <div className="flex justify-center mt-10">
         <h1 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-5xl dark:text-white">
           find creators
@@ -146,6 +148,7 @@ const FindCreators = () => {
         </span>
       </div>
       <CreatorList CreatorList={searchOutput} loading={loading}/>
+      </div>
     </>
   );
 };

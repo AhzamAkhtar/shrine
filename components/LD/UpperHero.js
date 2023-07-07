@@ -4,7 +4,7 @@ const UpperHero = () => {
   return (
     <>
 
-    <div className='flex justify-center'>
+    <div className='flex justify-center py-10'>
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-24 ">
     <div class="grid gap-4">
         <div>

@@ -3,7 +3,13 @@ import React from 'react'
 const JoinUs = () => {
     return (
         <>
-        <div className=' border-4 border-white px-20 mt-10 ml-5 mr-5 rounded-3xl'>
+        
+        <div className=' border-4 border-white px-20 mt-10 ml-5 mr-5 rounded-3xl mb-5'>
+        <div className="flex justify-center mt-12">
+        <h1 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-5xl dark:text-white">
+          join us as a creator
+        </h1>
+      </div>
             <div class="w-full p-4 mt-10 text-center bg-black rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <h2 class="mb-3 text-5xl font-extrabold text-center tracking-tight text-white dark:text-white">Unlock Your Creative Potential
                 </h2>
