@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Navbar from '../../components/Navbar'
-import { collection, getDoc, getDocs , query } from 'firebase/firestore'
-import db from '../../db/db'
 
+import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
+import db from '../../db/db'
+import Content from '../../components/content'
 const creatorPage = (props) => {
-    let content_arr = []
+    //let content_arr = []
     const creator = props.slug
     const starterArray = []
     const standardArray = []
@@ -92,22 +92,40 @@ const creatorPage = (props) => {
         getDes()
     }, [])
 
+    // useEffect(() => {
+    //     const array = []
+    //     const getContent = async () => {
+
+    //         const q = query(collection(db, "content"));
+
+    //         const querySnapshot = await getDocs(q);
+    //         querySnapshot.forEach((doc) => {
+    //             // doc.data() is never undefined for query doc snapshots
+    //             console.log(doc.id, " => ", doc.data());
+    //             content_arr.push({ ...doc.data(), key: doc.id });
+
+    //         });
+    //         content_arr = JSON.parse(JSON.stringify(array))
+
+    //         //setContent(JSON.parse(JSON.stringify))
+    //         console.log(content)
+    //     }
+    //     getContent()
+    // }, [])
     useEffect(() => {
-        const array = []
-        const getContent = async () => {
+        const fetch = async () => {
+            const colRef = collection(db, "content")
+            const snapshot = await getDocs(colRef)
 
-            const q = query(collection(db, "content"));
-
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                array.push({ ...doc.data(), key: doc.id });
-            });
-            content_arr = JSON.parse(JSON.stringify(array))
-            console.log(content_arr)
+            const docs = snapshot.docs.map((doc) => {
+                const data = doc.data()
+                data.id = doc.id
+                return data
+            })
+            setContent(docs)
+            console.log(docs)
         }
-        getContent()
+        fetch()
     }, [])
 
     return (
@@ -205,15 +223,51 @@ const creatorPage = (props) => {
                 </div>
 
 
+            </div>
 
+            <div className='flex justify-center'>
+                <h1 className='text-3xl font-extrabold mb-10'>recent post from {creator}</h1>
 
             </div>
+
+            
+                {content.map((item) => {
+                    return (
+                        <>
+                        <div className='flex justify-center mt-10'>
+                            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <a href="#">
+                                    <img class="rounded-t-lg" src={item.image} alt="" />
+                                </a>
+                                <div class="p-5">
+                                    <a href="#">
+                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.title}</h5>
+                                    </a>
+                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.desc}.</p>
+                                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Read more
+                                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                        </>
+                    )
+                })}
+
+           
+
+
 
         </>
     )
 }
 export async function getServerSideProps(context) {
     const { slug } = context.query;
+
+
     console.log(`slug is my ${slug}`);
     return {
         props: { slug },
