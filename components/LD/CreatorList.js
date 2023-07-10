@@ -48,7 +48,7 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                             <Avatar variant="circular" alt="candice" src={item.image} />
                           </ListItemPrefix>
                           <div>
-                            <Typography variant="h6" color="blue-gray">
+                            <Typography variant="h5" color="blue-gray">
                               {item.name}
                             </Typography>
                             <Typography variant="h6" color="blue-gray">

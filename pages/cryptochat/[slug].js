@@ -284,18 +284,18 @@ const PaymentModal = (props) => {
                                         <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" alt="Neil image" />
                                       </div>
                                       <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                        <p class="text-xl font-medium text-black truncate dark:text-white">
                                           {item.message}
                                         </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        <p class="text-lg text-gray-500 truncate dark:text-gray-400">
                                         from : {truncate(item.from)}
                                         </p>
-                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        <p class="text-lg text-gray-500 truncate dark:text-gray-400">
                                         {getDate(item.serverTimestamp.seconds)}
                                         </p>
                                       </div>
                                       <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        ${item.amount}
+                                        {item.amount} SOL
                                       </div>
                                     </div>
                                   </li>

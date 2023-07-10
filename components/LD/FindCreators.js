@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CreatorList from "./CreatorList";
 import { collection, getDocs } from "firebase/firestore"
 import db from "../../db/db";
+import UpperHero from "./UpperHero";
 const FindCreators = () => {
 
   const [search , setSearch] = useState("")
@@ -148,6 +149,9 @@ const FindCreators = () => {
         </span>
       </div>
       <CreatorList CreatorList={searchOutput} loading={loading}/>
+      <div>
+          <UpperHero className="flex justify-center" />
+        </div>
       </div>
     </>
   );
