@@ -7,10 +7,12 @@ import {
     queryEqual,
   } from "firebase/firestore";
   
+import { useRouter } from 'next/router';  
 import db from '../db/db';
 import { useState , useEffect } from 'react';
 import { useConnection, useLocalStorage, useWallet } from "@solana/wallet-adapter-react";
 const MockUp = () => {
+    const router = useRouter()
     const [wallet_connected, setWalletConnected] = useState(false);
     const [donationPageName, setDonationPageName] = useState("")
     const [donationPageHeading, setDonationPageHeading] = useState(
@@ -54,14 +56,14 @@ const MockUp = () => {
                         <section class="bg-black dark:bg-gray-900 p-5">
                             <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
                                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">get your donation page now</h1>
-                                <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+                                <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">creating a vibrant ecosystem of giving: empowering content creators with customized donation pages to foster community engagement and financial independence</p>
                                 <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                                     <a
                                         onClick={() =>
                                             handleProceeding()
                                         }
                                         href="#"
-                                        class="inline-flex justify-center items-center py-3 px-5 text-lg font-semibold text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                                        class="inline-flex justify-center items-center py-3 px-5 text-xl font-semibold text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                                     >
                                         {donationPageHeading}
                                     </a>
@@ -82,8 +84,8 @@ const MockUp = () => {
                             <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
                             <div class="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
                             <div class="rounded-[2rem] overflow-hidden h-[426px] md:h-[654px] bg-white dark:bg-gray-800">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/mocknew.png?alt=media&token=6a64e529-81c9-424c-97d4-cccc3cd6f547" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/mocknew.png?alt=media&token=6a64e529-81c9-424c-97d4-cccc3cd6f547" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/remdor.png?alt=media&token=a60e721b-dc52-4748-b476-6b7503802ecd" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/remdor.png?alt=media&token=a60e721b-dc52-4748-b476-6b7503802ecd" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
                             </div>
                         </div>
 

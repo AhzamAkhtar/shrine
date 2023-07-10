@@ -171,8 +171,8 @@ const creatorPage = (props) => {
                 <div class="mr-10 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Starter plan</h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
-                        <span class="text-3xl font-semibold">$</span>
                         <span class="text-5xl font-extrabold tracking-tight">{starterPrice}</span>
+                        <span class="text-3xl font-semibold">SOL</span>
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>
@@ -185,8 +185,8 @@ const creatorPage = (props) => {
                 <div class="mr-10 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Standard plan</h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
-                        <span class="text-3xl font-semibold">$</span>
                         <span class="text-5xl font-extrabold tracking-tight">{standardPrice}</span>
+                        <span class="text-3xl font-semibold">SOL</span>
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>
@@ -200,8 +200,8 @@ const creatorPage = (props) => {
                 <div class="mr-10 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Premium plan</h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
-                        <span class="text-3xl font-semibold">$</span>
                         <span class="text-5xl font-extrabold tracking-tight">{premiumPrice}</span>
+                        <span class="text-3xl font-semibold">SOL</span>
                         <span class="ml-1 text-xl font-normal text-gray-500 dark:text-gray-400">/month</span>
                     </div>
                     <div className='mt-2'>

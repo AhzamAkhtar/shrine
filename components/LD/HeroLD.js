@@ -69,12 +69,12 @@ const HeroLD = () => {
             </h1>
             <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">
               escape the grasp of intermediaries, and embrace a membership
-              platform that preserves your earnings.
+              platform that preserves your earnings
             </p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <a
                 href="#"
-                class="inline-flex justify-center items-center py-3 text-lg px-5 font-semibold text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                class="inline-flex justify-center items-center py-3 text-xl px-5 font-semibold text-center text-black rounded-full bg-white  focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
                 start a paid membership
                 {/* <svg
@@ -91,15 +91,7 @@ const HeroLD = () => {
                   ></path>
                 </svg> */}
               </a>
-              <a
-                onClick={() =>
-                  handleProceeding()
-                }
-                href="#"
-                class="inline-flex justify-center items-center py-3 px-5 text-lg font-semibold text-center bg-white text-black rounded-full  border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-              >
-                {donationPageHeading}
-              </a>
+              
             </div>
           </div>
         </section>
