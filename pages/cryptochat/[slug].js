@@ -22,6 +22,7 @@ import {
 import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
 import { Transaction } from "@solana/web3.js";
+import NftClaim from "../../components/NftClaim";
 
 const PaymentModal = (props) => {
   const { createTransaction } = useUSDCPay();
@@ -596,6 +597,11 @@ const PaymentModal = (props) => {
               </div>
             </div>
           </div>
+
+            {/* <div className="flex justify-center">
+           <NftClaim/>
+          </div> */}
+          
         </>
       )}
 
