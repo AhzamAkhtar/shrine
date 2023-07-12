@@ -435,6 +435,9 @@ const PaymentModal = (props) => {
                     <p className='text-black text-lg'>
                       unlock 1 content of your choice
                     </p>
+                    <p className='text-red-500 text-lg'>
+                      requirement : 10 poins
+                    </p>
                   </div>
                   {loading ? (
                     <>
@@ -475,6 +478,9 @@ const PaymentModal = (props) => {
                     <p className='text-black text-lg'>
                       unlock 5 content of your choice
                     </p>
+                    <p className='text-red-500 text-lg'>
+                      requirement : 50 poins
+                    </p>
                   </div>
                   {loading ? (
                     <>
@@ -514,6 +520,9 @@ const PaymentModal = (props) => {
                   <div className='mt-2'>
                     <p className='text-black text-lg'>
                       unlock 8 content of your choice
+                    </p>
+                    <p className='text-red-500 text-lg'>
+                      requirement : 80 poins
                     </p>
                   </div>
                   {loading ? (
