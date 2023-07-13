@@ -3,14 +3,23 @@ import Image from 'next/image'
 import { AiTwotoneLock } from 'react-icons/ai'
 import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 import db from '../../db/db'
-import Content from '../../components/content'
+import { useSFTPay } from '../../hooks/SFT'
+import Navbar from '../../components/Navbar'
+import { useCashApp } from "../../hooks/Pay";
+import Hero from '../../components/Hero'
+import { useWallet } from '@solana/wallet-adapter-react'
 const creatorPage = (props) => {
-    //let content_arr = []
+    const { connected, userPublickey} = useWallet();
+    const { createTransactionwithSFT } = useSFTPay()
     const creator = props.slug
     const starterArray = []
     const standardArray = []
     const premiumArray = []
     //const [starterPrice, setStarterPrice] = useState("")
+    const [userPubkey, setUserPubkey] = useState(
+        "11111111111111111111111111111111"
+    );
+    const [toPubkey, setToPubkey] = useState("11111111111111111111111111111111");
     const [starterDesc, setStarterDesc] = useState("")
     const [starterPrice, setStarterPrice] = useState("")
     const [standardPrice, setstandardPrice] = useState("")
@@ -21,6 +30,28 @@ const creatorPage = (props) => {
     const [content, setContent] = useState([])
     const [showContent, setShowContent] = useState(false)
     const [image, setImage] = useState("")
+    const { publicKey, userAddress } = useCashApp();
+
+    useEffect(() => {
+        if (connected) {
+            setUserPubkey(publicKey.toString());
+        }
+    }, [connected]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const querySnapshot = await getDocs(collection(db, "cryptochat"));
+            querySnapshot.forEach((doc) => {
+                if (doc.data().name == creator) {
+                    console.log("dsdd")
+                    setToPubkey(doc.data().address);
+                }
+            });
+        };
+        getData();
+    }, []);
+
+
     useEffect(() => {
 
         const getDes = async () => {
@@ -118,8 +149,11 @@ const creatorPage = (props) => {
         fetch()
     }, [])
 
+
+
     return (
         <>
+            
             <div className='w-full h-1/2
              bg-white flex justify-center py-10'>
                 <img
@@ -243,7 +277,15 @@ const creatorPage = (props) => {
                                             </a>
                                             <p class="mb-3 font-normal text-white dark:text-gray-400">{item.desc}.</p>
                                             <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                Read more
+                                                Unlock
+                                                <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                onClick={() => createTransactionwithSFT(userPubkey, toPubkey, 1)}
+                                                 class="cursor-pointer inline-flex items-center mx-5 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                Unlock with 1SHR
                                                 <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                                                 </svg>

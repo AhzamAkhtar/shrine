@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 export default function CreatorList({ CreatorList, loading, showDefaultList }) {
   const router = useRouter() 
   return (
@@ -43,7 +44,8 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                   {CreatorList.map((item) => {
                     return (
                       <>
-                        <ListItem onClick={()=> router.push(`http://localhost:3000/creatorPage/${item.name}`)}>
+                      <Link href = {`http://localhost:3000/creatorPage/${item.name}`}>
+                        <ListItem >
                           <ListItemPrefix>
                             <Avatar variant="circular" alt="candice" src={item.image} />
                           </ListItemPrefix>
@@ -59,6 +61,7 @@ export default function CreatorList({ CreatorList, loading, showDefaultList }) {
                             </Typography>
                           </div>
                         </ListItem>
+                        </Link>
                       </>
                     )
                   })}
