@@ -12,6 +12,7 @@ import { Dropdown } from "flowbite-react";
 import styles from "../../styles/Wallet.module.css";
 import db from "../../db/db";
 import wallet from "../../wallet/wallet";
+import {recieveSFT} from "../../hooks/recieveSFT"
 import {
   collection,
   getDocs,
@@ -51,6 +52,7 @@ const connection = new Connection("https://api.devnet.solana.com", 'confirmed');
 const mint = new PublicKey("2Jb3ESx6sZtATAuiNBJJ2EtqaAJazox6WXJ8kaAENEcn");
 
 const PaymentModal = (props) => {
+  const {recieveSFTfun} = recieveSFT()
   const { createTransaction } = useUSDCPay();
   const WalletMultiButtonDynamic = dynamic(
     async () =>
@@ -302,7 +304,7 @@ const PaymentModal = (props) => {
     setLoading(false)
   }
 
-  const claim_sftx8 = async () => {
+  const claim_sftx3 = async () => {
     setLoading(true)
     const form = new PublicKey("CgAMiwRmmsCdNBu17s7GiGJat93iiT98VQKX6dwcWkHJ")
     const to_account = await getOrCreateAssociatedTokenAccount(
@@ -318,7 +320,7 @@ const PaymentModal = (props) => {
       form,
       to_account.address,
       keypair.publicKey,
-      8
+      3
     );
 
     console.log("Success ! Check", txhash);
@@ -507,7 +509,7 @@ const PaymentModal = (props) => {
                   ) : (
                     <>
 
-                      <button onClick={() => claim_sftx5()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
+                      <button onClick={() => claim_sftx3()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
                     </>
                   )}
                 </div>
@@ -550,7 +552,7 @@ const PaymentModal = (props) => {
                   ) : (
                     <>
 
-                      <button onClick={() => claim_sftx8()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
+                      <button onClick={() => claim_sftx5()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
                     </>
                   )}
                 </div>
