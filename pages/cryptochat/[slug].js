@@ -17,8 +17,6 @@ import {
   collection,
   getDocs,
   addDoc,
-  doc,
-  updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
 import { useWallet } from "@solana/wallet-adapter-react";
