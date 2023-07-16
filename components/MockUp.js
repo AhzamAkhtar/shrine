@@ -8,6 +8,7 @@ import {
   } from "firebase/firestore";
   
 import { useRouter } from 'next/router';  
+import Link from 'next/link';
 import db from '../db/db';
 import { useState , useEffect } from 'react';
 import { useConnection, useLocalStorage, useWallet } from "@solana/wallet-adapter-react";
@@ -46,6 +47,7 @@ const MockUp = () => {
         }
         if (donationPageHeading == "go to your donation page") {
             router.push(`http://localhost:3000/donationPage/${donationPageName}`)
+            
         }
     }
     return (

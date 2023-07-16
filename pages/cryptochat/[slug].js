@@ -79,7 +79,7 @@ const PaymentModal = (props) => {
   const { publicKey, userAddress } = useCashApp();
   const [docIdForUpdatingPoint, setDocIdForUpdatingPoint] = useState();
   const [customAmount, setCustomAmount] = useState(false);
-  const [usdcPay, setUsdcPay] = useState(true);
+  const [usdcPay, setUsdcPay] = useState(false);
   const [date, setDate] = useState()
   const [claimPoints, setClaimPoints] = useState(false)
   const getDate = (seconds) => {
@@ -641,11 +641,11 @@ const PaymentModal = (props) => {
                       </h2>
                       <div className="ml-14">
                         <Dropdown label="Select Payment Method">
-                          <Dropdown.Item onClick={() => setUsdcPay(true)}>
-                            USDC
-                          </Dropdown.Item>
                           <Dropdown.Item onClick={() => setUsdcPay(false)}>
                             SOL
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={() => setUsdcPay(true)}>
+                            USDC
                           </Dropdown.Item>
                         </Dropdown>
                       </div>
