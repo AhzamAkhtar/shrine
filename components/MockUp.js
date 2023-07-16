@@ -84,8 +84,8 @@ const MockUp = () => {
                             <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
                             <div class="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
                             <div class="rounded-[2rem] overflow-hidden h-[426px] md:h-[654px] bg-white dark:bg-gray-800">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/remdor.png?alt=media&token=a60e721b-dc52-4748-b476-6b7503802ecd" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/remdor.png?alt=media&token=a60e721b-dc52-4748-b476-6b7503802ecd" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donat.png?alt=media&token=cb22c20d-fa83-4547-96f4-f55735e767a7" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donat.png?alt=media&token=cb22c20d-fa83-4547-96f4-f55735e767a7" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
                             </div>
                         </div>
 
