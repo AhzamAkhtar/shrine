@@ -75,7 +75,7 @@ const HeroLD = () => {
               <span className="text-yellow-300 dark:text-blue-500">
               membership platform {" "}
               </span>
-              that empowers creators to {" "}
+              that empowers content creators to {" "}
               <span className="text-yellow-300 dark:text-blue-500">
               {" "} monetize
               </span>
