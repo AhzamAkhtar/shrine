@@ -23,7 +23,8 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { truncate } from "../../utils/string";
 import { Transaction } from "@solana/web3.js";
 import NftClaim from "../../components/NftClaim";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //
 import {
   Commitment,
@@ -256,6 +257,20 @@ const PaymentModal = (props) => {
     setAmount(e.target.value);
   };
 
+  const showToast = () => {
+    toast.success("5x sft shrine deposited into your wallet", {
+      toastId: "abx",
+      position: "bottom-left",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+   
+  };
+
   const claim_sft = async () => {
     setLoading(true)
     const form = new PublicKey("CgAMiwRmmsCdNBu17s7GiGJat93iiT98VQKX6dwcWkHJ")
@@ -277,6 +292,7 @@ const PaymentModal = (props) => {
 
     console.log("Success ! Check", txhash);
     setLoading(false)
+    showToast()
   }
 
   const claim_sftx5 = async () => {
@@ -300,9 +316,10 @@ const PaymentModal = (props) => {
 
     console.log("Success ! Check", txhash);
     setLoading(false)
+    showToast()
   }
 
-  const claim_sftx3 = async () => {
+  const claim_sftx8 = async () => {
     setLoading(true)
     const form = new PublicKey("CgAMiwRmmsCdNBu17s7GiGJat93iiT98VQKX6dwcWkHJ")
     const to_account = await getOrCreateAssociatedTokenAccount(
@@ -318,11 +335,12 @@ const PaymentModal = (props) => {
       form,
       to_account.address,
       keypair.publicKey,
-      3
+      1
     );
 
     console.log("Success ! Check", txhash);
     setLoading(false)
+    showToast()
   }
 
   return (
@@ -330,6 +348,18 @@ const PaymentModal = (props) => {
       <Navbar />
       <Hero />
 
+      <div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       {showChat ? (
         <>
           <section class="text-gray-600 body-font mx-5 py-24">
@@ -507,7 +537,7 @@ const PaymentModal = (props) => {
                   ) : (
                     <>
 
-                      <button onClick={() => claim_sftx3()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
+                      <button onClick={() => claim_sftx5()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
                     </>
                   )}
                 </div>
@@ -550,7 +580,7 @@ const PaymentModal = (props) => {
                   ) : (
                     <>
 
-                      <button onClick={() => claim_sftx5()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
+                      <button onClick={() => claim_sftx8()} type="button" class=" mt-5 text-white bg-yellow-300 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-4 inline-flex justify-center w-full text-center">claim</button>
                     </>
                   )}
                 </div>
@@ -890,6 +920,7 @@ const PaymentModal = (props) => {
           </div>
         </div>
       </section> */}
+      </div>
     </>
   );
 };

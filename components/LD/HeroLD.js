@@ -54,23 +54,44 @@ const HeroLD = () => {
     }
   }
 
+
+
   return (
     <>
       <div className="py-24 mt-10">
         <section class="bg-black dark:bg-gray-900">
-          <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl dark:text-white">
+          <div class="py-8 mx-auto max-w-screen-2xl text-center lg:py-12">
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-yellow-300 md:text-5xl lg:text-6xl dark:text-white">
               {" "}
-              breaking the chains :{" "}
-              <span className="text-yellow-300 dark:text-blue-500">
+              unlock your content potential on solana
+              {/* <span className="text-yellow-300 dark:text-blue-500">
                 embrace a membership platform{" "}
               </span>
-              free from fees
+              free from fees */}
             </h1>
-            <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">
+            <div>
+            <h1 class="mb-10 text-4xl max-w-screen-xl mx-auto font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-5xl dark:text-white">
+              with a {" "} 
+              <span className="text-yellow-300 dark:text-blue-500">
+              membership platform {" "}
+              </span>
+              that empowers creators to {" "}
+              <span className="text-yellow-300 dark:text-blue-500">
+              {" "} monetize
+              </span>
+              {" "} their work, drive
+
+              <span className="text-yellow-300 dark:text-blue-500">
+              {" "} fan support
+              </span>
+              {" "} to new heights. 
+
+            </h1>
+            </div>
+            {/* <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">
               escape the grasp of intermediaries, and embrace a membership
               platform that preserves your earnings
-            </p>
+            </p> */}
             <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <a
                 href="#"
