@@ -58,7 +58,7 @@ const MockUp = () => {
                         <section class="bg-black dark:bg-gray-900 p-5">
                             <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
                                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl dark:text-white">get your donation page now</h1>
-                                <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">creating a vibrant ecosystem of giving: empowering content creators with customized donation pages to foster community engagement and financial independence</p>
+                                <p class="mb-8 text-xl font-semibold text-yellow-100 lg:text-3xl sm:px-16 lg:px-48 dark:text-gray-400">empowering content creators with customized donation pages to foster community engagement and financial independence</p>
                                 <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                                     <a
                                         onClick={() =>
@@ -86,8 +86,8 @@ const MockUp = () => {
                             <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
                             <div class="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
                             <div class="rounded-[2rem] overflow-hidden h-[426px] md:h-[654px] bg-white dark:bg-gray-800">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donat.png?alt=media&token=cb22c20d-fa83-4547-96f4-f55735e767a7" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
-                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donat.png?alt=media&token=cb22c20d-fa83-4547-96f4-f55735e767a7" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donpag.png?alt=media&token=a0736fb3-c805-418f-916d-5133f7c4744e" class="dark:hidden h-[426px] md:h-[654px]" alt="" />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/shrine-76128.appspot.com/o/new%20donpag.png?alt=media&token=a0736fb3-c805-418f-916d-5133f7c4744e" class="hidden dark:block h-[426px] md:h-[654px]" alt="" />
                             </div>
                         </div>
 

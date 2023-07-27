@@ -65,7 +65,7 @@ const PaymentModal = (props) => {
   const [data, setData] = useState([]);
   const user = props.slug;
   const { doTransaction, amount, setAmount } = useCashApp();
-  const [price, setPrice] = useState("$0.75");
+  const [price, setPrice] = useState("0.75");
   const [color, setColor] = useState("orange-400");
   const [transactionQRModalOpen, setTransactionQRModalOpen] = useState(false);
   const [qrCode, setQrCode] = useState(false);
@@ -205,7 +205,7 @@ const PaymentModal = (props) => {
       amount,
     });
     setMessage("");
-    setPrice("$0.25");
+    setPrice("0.25");
     setColor("green-500");
   };
 
@@ -721,29 +721,29 @@ const PaymentModal = (props) => {
                             <button
                               class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$5");
+                                setPrice("5");
                                 setColor("green-500");
                                 setAmount(5);
                                 setMsgColor("green-500");
                               }}
                             >
-                              send $5
+                              send 5
                             </button>
                             <button
                               class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$10");
+                                setPrice("10");
                                 setColor("blue-500");
                                 setAmount(10);
                                 setMsgColor("blue-500");
                               }}
                             >
-                              send $10
+                              send 10
                             </button>
                             <button
                               class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$15");
+                                setPrice("15");
                                 setColor("orange-400 ");
                                 setAmount(15);
                                 setMsgColor("orange-400");
@@ -754,13 +754,13 @@ const PaymentModal = (props) => {
                             <button
                               class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$20");
+                                setPrice("20");
                                 setColor("red-500");
                                 setAmount(20);
                                 setMsgColor("red-500");
                               }}
                             >
-                              send $20
+                              send 20
                             </button>
                           </div>
                         </>
@@ -770,46 +770,46 @@ const PaymentModal = (props) => {
                             <button
                               class="bg-white text-green-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$0.25");
+                                setPrice("0.25");
                                 setColor("green-500");
                                 setAmount(0.25);
                                 setMsgColor("green-500");
                               }}
                             >
-                              send $.25
+                              send 0.25
                             </button>
                             <button
                               class="bg-white text-blue-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$0.50");
+                                setPrice("0.50");
                                 setColor("blue-500");
                                 setAmount(0.5);
                                 setMsgColor("blue-500");
                               }}
                             >
-                              send $.50
+                              send 0.50
                             </button>
                             <button
                               class="bg-white text-orange-400  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$0.75");
+                                setPrice("0.75");
                                 setColor("orange-400 ");
                                 setAmount(0.75);
                                 setMsgColor("orange-400");
                               }}
                             >
-                              send $.75
+                              send 0.75
                             </button>
                             <button
                               class="bg-white text-red-500  py-2 px-2 rounded-lg text-lg font-extrabold leading-none tracking-tight md:text-5xl lg:text-xl dark:text-white "
                               onClick={() => {
-                                setPrice("$0.1");
+                                setPrice("0.1");
                                 setColor("red-500");
                                 setAmount(0.1);
                                 setMsgColor("red-500");
                               }}
                             >
-                              send $0.1
+                              send 0.1
                             </button>
                           </div>
                         </>
@@ -845,7 +845,7 @@ const PaymentModal = (props) => {
                             onClick={() => execute()}
                             className={`text-black w-2/3 mx-1 bg-white border-0  py-2 px-4 focus:outline-none rounded-lg text-lg  font-extrabold leading-none tracking-tight  md:text-5xl lg:text-xl dark:text-white`}
                           >
-                            send {amount}
+                            send {amount} sol
                           </button>
 
                           <div class="flex w-1/3 text-2xl items-center justify-center px-4 py-2 space-x-2 border border-gray-300 rounded-md bg-white text-gray-800">
