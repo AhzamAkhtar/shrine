@@ -219,23 +219,6 @@ const PaymentModal = (props) => {
     setColor("green-500");
   };
 
-  // useEffect(() => {
-  //   const getColor = async () => {
-  //     const querySnapshot = await getDocs(collection(db, "users_cryptochat"))
-  //     querySnapshot.forEach((doc) => {
-  //       if (doc.data().user == "44n5CYX18L6p4VxVECE9ZNYrAGB9GKD477b78kPNq5Su") {
-  //         console.log("start")
-  //         console.log(userPubkey)
-  //         console.log(doc.data().user)
-  //         setAvatarColor(doc.data().color)
-  //       }
-  //     })
-  //   }
-  //   getColor()  
-  // },[])
-  // console.log(avatarColor)
-  // //console.log(userPubkey)
-
   const addMessage = async () => {
     await addDoc(collection(db, "message"), {
       name: user,
@@ -439,9 +422,9 @@ const PaymentModal = (props) => {
                                   <>
                                     <li class="py-3 sm:py-4">
                                       <div class="flex items-center space-x-4">
-                                        <div class="flex-shrink-0">
-                                          <div class="w-8 h-8 rounded-full" style={{ backgroundColor: `${item.color}` }} alt="Neil image" />
-                                        </div>
+                                      <div class="flex-shrink-0">
+                                        <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" alt="Neil image" />
+                                      </div>
                                         <div class="flex-1 min-w-0">
                                           <p class="text-xl font-medium text-black truncate dark:text-white">
                                             {item.message}
